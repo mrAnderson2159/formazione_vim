@@ -93,4 +93,86 @@ alla precedente e da puntatori ai file invariati.
 La repository si trova all'interno della cartella .git, che contiene
 tutte le informazioni necessarie per il controllo di versione.
 
+
+\section{Git Bash}
+Su Windows, Git Bash è una shell che permette di utilizzare i comandi
+di Git da riga di comando. È possibile aprirla cliccando con il tasto
+destro del mouse in una cartella e selezionando \textit{Git Bash Here}.
+\begin{highlight}
+    I comandi di Git Bash sono simili a quelli di Linux.
+\end{highlight}
+
+\subsection{Comandi}
+\begin{itemize}
+    \item \texttt{ll}: elenca i file e le cartelle.
+    % \item \texttt{cd <cartella>}: sposta nella cartella specificata.
+    % \item \texttt{pwd}: mostra il percorso della cartella attuale.
+    % \item \texttt{mkdir <cartella>}: crea una nuova cartella.
+    % \item \texttt{touch <file>}: crea un nuovo file.
+    % \item \texttt{rm <file>}: rimuove un file.
+    % \item \texttt{rm -r <cartella>}: rimuove una cartella.
+\end{itemize}
+
+\pagebreak
+\section{Configurazione}
+Prima di iniziare a utilizzare Git, è necessario configurare il proprio
+nome e indirizzo email. Questi dati verranno utilizzati per identificare
+i commit.
+\begin{itemize}
+    \item \texttt{git config --global user.name "Nome Cognome"}
+    \item \texttt{git config --global user.email "Nostra Email"}
+    \item \texttt{git config --list}: mostra la configurazione attuale.
+    \item \texttt{git config --global --unset user.email}: rimuove un'impostazione.
+    \item \texttt{git config --global --edit}: modifica il file di configurazione.
+\end{itemize}
+
+\section{Comandi base}
+\begin{itemize}
+    \item \texttt{git help}: mostra l'elenco dei comandi.
+    \item \texttt{git init}: inizializza una nuova repository.
+    \item \texttt{git status}: mostra lo stato della working directory.
+    \item \texttt{git add <file>}: aggiunge un file alla staging area.
+    \item \texttt{git commit -m "Messaggio"}: salva le modifiche.
+    \item \texttt{git log}: mostra la cronologia dei commit.
+\end{itemize}
+
+\subsection{git add}
+Il comando \texttt{git add} permette di aggiungere i file alla staging area.
+\begin{itemize}
+    \item \texttt{git add .}: aggiunge tutti i file modificati.
+    \item \texttt{git add -A}: aggiunge tutti i file, anche quelli eliminati.
+    \item \texttt{git add -u}: aggiunge solo i file modificati o eliminati.
+    \item \texttt{git add <file>}: aggiunge un file specifico.
+    \item \texttt{git add <cartella>}: aggiunge tutti i file della cartella.
+\end{itemize}
+
+\begin{highlight}
+    Aggiungere un file alla staging area non comporta aggiungere le sue 
+    successive modifiche
+\end{highlight}
+
+Esempio:
+\begin{verbatim}
+git add file.txt
+git commit -m "Aggiunto file.txt"
+\end{verbatim}    
+
+A questo punto eseguendo
+\begin{verbatim}
+git status
+\end{verbatim}
+il file \texttt{file.txt} non sarà più presente nella lista dei file modificati 
+(\texttt{Changes not staged for commit}) ma sarà presente nella lista dei file tracciati (\texttt{Changes to be committed}).
+
+Supponiamo ora di modificare il file \texttt{file.txt} e di eseguire nuovamente
+\begin{verbatim}
+git status
+\end{verbatim}
+il file \texttt{file.txt} sarà presente sia nella lista dei file modificati 
+ che in quella dei file tracciati.
+
+Per far si che le modifiche vengano aggiunte alla staging area è necessario
+eseguire nuovamente il comando \texttt{git add file.txt}.
+
+
 \end{document}
