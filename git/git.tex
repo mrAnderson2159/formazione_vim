@@ -174,5 +174,27 @@ il file \texttt{file.txt} sarà presente sia nella lista dei file modificati
 Per far si che le modifiche vengano aggiunte alla staging area è necessario
 eseguire nuovamente il comando \texttt{git add file.txt}.
 
+\subsection{git commit}
+Il comando \texttt{git commit} permette di salvare le modifiche nella repository.
+\begin{itemize}
+    \item \texttt{git commit -m "Messaggio"}: salva le modifiche con un messaggio.
+    \item \texttt{git commit -am "Messaggio"}: aggiunge e salva i file modificati.
+    \item \texttt{git commit --amend}: modifica l'ultimo commit.
+    \item \texttt{git commit -v}: mostra le modifiche nel messaggio di commit.
+\end{itemize}
+
+\pagebreak
+\subsection{git log}
+Il comando \texttt{git log} mostra la cronologia dei commit.
+
+\begin{itemize}
+    \item \texttt{git log --oneline}: mostra i commit in una riga.
+    \item \texttt{git log --graph --oneline --all}: mostra il grafo dei commit.
+    \item \texttt{git log --author="Nome Cognome"}: mostra i commit di un autore.
+    \item \texttt{git log --grep="Messaggio"}: mostra i commit con un messaggio.
+\end{itemize}
+
+\section{Verifiche e ripensamenti}
+
 
 \end{document}
