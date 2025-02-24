@@ -10,6 +10,10 @@
 </button>
 
 <h1>{number}</h1>
+<p>{number === 0 ? 
+"Hey! Why don't you try to click the button" :
+`You clicked ${number} times`}</p>
+
 <p>Hello!</p>
 <div class="container">
     <p>This is the left side</p>
