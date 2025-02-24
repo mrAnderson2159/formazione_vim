@@ -68,13 +68,21 @@
 
 % Esempio di sezione
 \section{Introduzione}
-Questi sono gli appunti di formazione per l'utilizzo di React.
+Si basa sull'utilizzo di file .jsx che sta per JavaScript XML. 
+Questi file sono molto simili ai file HTML, 
+ma con la differenza che possono contenere codice JavaScript. 
+Questo codice viene poi trasformato in codice JavaScript puro 
+tramite un compilatore chiamato Babel.
 
-\begin{highlight}
-Questa è un'area evidenziata per definizioni importanti o esempi pratici.
-\end{highlight}
+Questi file devono rispettare tre regole:
+\begin{itemize}
+    \item Devono contenere un solo elemento radice, ovvero una funzione
+    che deve avere un nome che inizia per lettera maiuscola.
+    \item La funzione deve restituire un valore, ovvero un elemento JSX.
+    \item In fine devono avere una direttiva di esportazione 
+    ({\tt export default <nome\_funzione>})
+\end{itemize}
 
-\subsection{Obiettivi}
-L'obiettivo principale di questi appunti è fornire un supporto chiaro e organizzato per lo studio.
+
 
 \end{document}
