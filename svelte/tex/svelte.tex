@@ -85,5 +85,55 @@ lanciare i seguenti comandi:
     npm install
     npm run dev
 \end{verbatim}
+Questo ci permetterà di creare un progetto Svelte e di ottenere l'indirizzo
+locale del server di sviluppo.
+
+\section{Svelte file}
+Un file Svelte è composto da tre parti principali:
+\begin{itemize}
+    \item \textbf{Script}: contiene il codice JavaScript che gestisce la logica dell'applicazione.
+    \item \textbf{Style}: contiene il codice CSS che gestisce lo stile dell'applicazione.
+    \item \textbf{Template}: contiene il codice HTML che definisce la struttura dell'applicazione.
+\end{itemize}
+
+\pagebreak
+Esempio di file Svelte:
+\begin{verbatim}
+<script>
+    let count = 0;
+    function onclick() {
+        count += 1;
+    }
+</script>
+
+<style>
+    button {
+        color: white;
+        background-color: blue;
+    }
+</style>
+
+<button {onclick}>
+    Clicked {count} {count === 1 ? 'time' : 'times'}
+</button>
+\end{verbatim}
+
+Mentre lo script e lo stile si spiegano da soli, possiamo notare nel template 
+l'utilizzo della shortcut {\tt \{onclick\}} che permette di associare la funzione
+{\tt onclick} all'evento {\tt click} del bottone, senza dover scrivere onclick={onclick}.
+
+\begin{highlight}
+    Alla creazione di un nuovo progetto, svelte creerà il file src/routes/+page.svelte 
+    che contiene il codice della pagina web all'indirizzo del server locale.
+\end{highlight}
+
+\subsection{\$state e \$derived}
+Svelte mette a disposizione due variabili speciali:
+\begin{itemize}
+    \item \important{\$state}: contiene lo stato attuale dell'applicazione.
+    \item \important{\$derived}: contiene le variabili derivate dallo stato attuale.
+\end{itemize}
+
+
 
 \end{document}
