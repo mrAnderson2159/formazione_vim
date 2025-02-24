@@ -134,6 +134,96 @@ Svelte mette a disposizione due variabili speciali:
     \item \important{\$derived}: contiene le variabili derivate dallo stato attuale.
 \end{itemize}
 
+Supponiamo di avere il seguente codice:
+\begin{verbatim}
+<script lang='ts'>
+    let number = 0;
+    function onclick() {
+        number++;
+    }
+</script>
 
+<button {onclick}>
+    Click me!
+</button>
+
+<h1>{number}</h1>
+\end{verbatim}
+e supponiamo di voler mostrare all'utente un messaggio personalizzato
+in base al numero di click.
+
+Un esempio classico potrebbe essere
+\begin{verbatim}
+<script lang='ts'>
+    let number = 0;
+    function onclick() {
+        number++;
+    }
+</script>
+
+<button {onclick}>
+    Click me!
+</button>
+
+<h1>{number}</h1>
+<p>{number === 0 ? 
+"Hey! Why don't you try to click the button" :
+`You clicked ${number} times`}</p>
+\end{verbatim}
+
+Ma una soluzione più compatta e più nello stile di \texttt{Svelte} consiste
+nel registrare lo stato \texttt{number} come \texttt{\$state} e 
+creare una variabile derivata \texttt{message} che si aggiorna automaticamente
+in base allo stato di \texttt{number}.
+
+\begin{verbatim}
+<script lang='ts'>
+    let number = $state(0);
+    let userInformation = $derived(
+        number === 0 ? "Hey! Why don't you try to click the button" :
+                       `You clicked ${number} times`
+    )
+    function onclick() {
+        number++;
+    }
+</script>
+
+<button {onclick}>
+    Click me!
+</button>
+
+<h1>{number}</h1>
+<p>{userInformation}</p>
+\end{verbatim}
+
+O ancora possiamo creare una funzione apposita per elaborare il messaggio 
+e chiamarla nella callback della derivata, utilizzando {\tt \$derived.by}.
+
+\begin{verbatim}
+<script lang='ts'>
+    let number = $state(0);
+    let userInformation = $derived.by(() => calculateUserInfo(number));
+    function onclick() {
+        number++;
+    }
+    function calculateUserInfo(number: number) {
+        switch (number) {
+            case 0:
+                return "Hey! Why don't you try to click the button";
+            case 1:
+                return "You clicked exactly one time";
+            default:
+                return `You clicked ${number} times`;
+        }
+    }
+</script>
+
+<button {onclick}>
+    Click me!
+</button>
+
+<h1>{number}</h1>
+<p>{userInformation}</p>
+\end{verbatim}
 
 \end{document}
