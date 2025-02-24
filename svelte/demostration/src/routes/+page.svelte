@@ -1,5 +1,9 @@
 <script lang='ts'>
-    let number = 0;
+    let number = $state(0);
+    let userInformation = $derived(
+        number === 0 ? "Hey! Why don't you try to click the button" :
+                       `You clicked ${number} times`
+    )
     function onclick() {
         number++;
     }
@@ -10,9 +14,7 @@
 </button>
 
 <h1>{number}</h1>
-<p>{number === 0 ? 
-"Hey! Why don't you try to click the button" :
-`You clicked ${number} times`}</p>
+<p>{userInformation}</p>
 
 <p>Hello!</p>
 <div class="container">
