@@ -1,11 +1,18 @@
 <script lang='ts'>
     let number = $state(0);
-    let userInformation = $derived(
-        number === 0 ? "Hey! Why don't you try to click the button" :
-                       `You clicked ${number} times`
-    )
+    let userInformation = $derived.by(() => calculateUserInfo(number));
     function onclick() {
         number++;
+    }
+    function calculateUserInfo(number: number) {
+        switch (number) {
+            case 0:
+                return "Hey! Why don't you try to click the button";
+            case 1:
+                return "You clicked exactly one time";
+            default:
+                return `You clicked ${number} times`;
+        }
     }
 </script>
 
