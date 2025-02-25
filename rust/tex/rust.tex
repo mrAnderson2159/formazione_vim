@@ -68,13 +68,58 @@
 
 % Esempio di sezione
 \section{Introduzione}
-Questi sono gli appunti di formazione per l'utilizzo di Rust.
+Rust è un linguaggio di programmazione di sistema che è focalizzato 
+sulla sicurezza, sulla velocità e sulla concorrenza. 
+È progettato per essere \important{sicuro}, \important{concorrente} e 
+\important{pratico}.
 
-\begin{highlight}
-Questa è un'area evidenziata per definizioni importanti o esempi pratici.
-\end{highlight}
+\section{Installazione}
+Per installare Rust su Unix, è sufficiente eseguire il seguente comando:
+\begin{verbatim}
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+\end{verbatim}
+Mentre su Windows è possibile scaricare l'eseguibile dal sito ufficiale.
 
-\subsection{Obiettivi}
-L'obiettivo principale di questi appunti è fornire un supporto chiaro e organizzato per lo studio.
+\section{Hello, World!}
+Per creare un programma che stampi a schermo la stringa \texttt{Hello, World!},
+è sufficiente creare un file \texttt{main.rs} con il seguente contenuto:
+\begin{verbatim}
+// main.rs
+
+fn main() {
+    println!("Hello, World!");
+}
+\end{verbatim}
+Per compilare ed eseguire il programma, eseguire il comando:
+\begin{verbatim}
+rustc main.rs && ./main
+\end{verbatim}
+
+\section{Progetto}
+Cargo è il gestore di pacchetti e di progetti di Rust. 
+Per creare un nuovo progetto, possiamo eseguire il comando:
+\begin{verbatim}
+cargo new <nome_progetto>
+\end{verbatim}
+Questo comportera la creazione di una cartella con il nome specificato,
+contenente un file .toml e una cartella \texttt{src} con il file \texttt{main.rs}.
+Per compilare ed eseguire il progetto, ci spostiamo nella cartella del progetto
+ed eseguiamo il comando:
+\begin{verbatim}
+cargo run
+\end{verbatim}
+Per eseguire il programma compilato senza ricompilarlo, possiamo eseguire il comando:
+\begin{verbatim}
+./target/debug/<nome_progetto>
+\end{verbatim}
+Nel caso in cui non fossimo interessati ad eseguirlo, ma solo a compilarlo,
+possiamo eseguire il comando:
+\begin{verbatim}
+cargo build
+\end{verbatim}
+Infine se volessimo compilare il progetto per la produzione, possiamo eseguire il comando:
+\begin{verbatim}
+cargo build --release
+\end{verbatim}
 
 \end{document}
