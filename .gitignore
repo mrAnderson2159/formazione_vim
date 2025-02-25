@@ -12,3 +12,7 @@
 
 # File PDF generati
 *.pdf
+
+# Rust Cargo files
+Cargo.lock
+target/
