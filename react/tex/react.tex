@@ -66,7 +66,6 @@
 \tableofcontents
 \newpage
 
-% Esempio di sezione
 \section{Introduzione}
 Si basa sull'utilizzo di file .jsx che sta per JavaScript XML. 
 Questi file sono molto simili ai file HTML, 
@@ -83,6 +82,87 @@ Questi file devono rispettare tre regole:
     ({\tt export default <nome\_funzione>})
 \end{itemize}
 
+\section{Componenti}
+I componenti sono delle funzioni che restituiscono un elemento JSX.
+\begin{verbatim}
+// src/compontents/Header.jsx
+function Header() {
+    function randomWorld() {
+        const words = ["Fundamental", "Core", "Crucial"];
 
+        return words[Math.round(Math.random() * (words.length - 1))];
+    }
+
+    const description = randomWorld();
+
+    
+    return (
+        <header>
+            <img src="src/assets/react-core-concepts.png" alt="Stylized atom" />
+            <h1>React Essentials</h1>
+            <p>
+                {description} React concepts you will need for almost any app
+                you are going to build! Let's get started!
+            </p>
+        </header>
+    );
+}
+
+export default Header;
+
+// src/App.jsx
+import Header from "./components/Header";
+
+function App() {
+    return (
+        <div>
+            <Header />
+            <main>
+                <h2>Time to get started!</h2>
+            </main>
+        </div>
+    );
+}
+
+export default App;
+\end{verbatim}
+
+\subsection{Importazioni}
+Il comando {\tt import} permette di importare un modulo o un file,
+ma permette anche di importare {\it media} come immagini, video, ecc.
+
+Ad esempio possiamo correggere la riga del file {\tt Header.jsx}:
+\begin{verbatim}
+<img src="src/assets/react-core-concepts.png" alt="Stylized atom" />
+\end{verbatim}
+in:
+\begin{verbatim}
+    import logoImage from "../assets/react-core-concepts.png";
+
+    ...
+    
+        return (
+            <header>
+                <img src={logoImage} alt="Stylized atom" />
+                ...
+            </header>
+        );
+    ...
+    
+    export default Header;
+\end{verbatim}
+Questo è importante perché in fase di deploy, React non sa dove trovare i file
+multimediali, quindi è necessario importarli.
+
+\subsubsection{Esportazioni nominali e default}
+Generalmente le componenti vengono esportate come {\tt default},
+per questo quando un file importa una componente, importa il nome
+della componente, ma, sebbene sia una pratica sconsigliatissima,
+è possibile importare una componente con un nome diverso da quello
+della componente stessa.
+
+Invece in un file so possono esportare più variabili {\it nominali},
+tuttavia quando vengono importate, devono essere importate con lo stesso
+nome con cui sono state esportate e {\bf devono essere racchiuse tra parentesi graffe}.
 
 \end{document}

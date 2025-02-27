@@ -226,4 +226,181 @@ e chiamarla nella callback della derivata, utilizzando {\tt \$derived.by}.
 <p>{userInformation}</p>
 \end{verbatim}
 
+\subsection{Binding}
+Svelte permette di associare una variabile ad un elemento HTML in modo che
+ogni modifica della variabile si rifletta automaticamente sull'elemento.
+
+Supponiamo di avere il seguente codice:
+\begin{verbatim}
+<script lang='ts'>
+    let username = $state('');
+</script>   
+
+<input type='text' />
+<h1>Hello {username}</h1>
+\end{verbatim}
+
+Per associare la variabile \texttt{username} all'input, 
+possiamo utilizzare la direttiva \texttt{bind:value}.
+In questo modo ogni modifica dell'input si rifletterà automaticamente
+sulla variabile \texttt{username}.
+
+\begin{verbatim}
+<script lang='ts'>
+    let username = $state('');
+</script>
+
+<input type='text' bind:value={username} />
+<h1>Hello {username}</h1>
+\end{verbatim}
+
+\subsection{\$effect}
+Svelte mette a disposizione la variabile \important{\$effect} che permette di
+eseguire un effetto collaterale ogni volta che una variabile cambia.
+Consideriamo di voler stampare a console il valore di \texttt{username} ogni volta
+che questo cambia.
+
+\begin{verbatim}
+<script lang='ts'>
+    let username = $state('');
+    $effect(() => {
+        console.log(username);
+    });
+</script>
+
+<input type='text' bind:value={username} />
+<h1>Hello {username}</h1>
+\end{verbatim}
+\begin{highlight}
+    \$effect è da considerarsi come una \textit{ultima risorsa}
+    in quanto "esula" dalla filosofia di Svelte
+\end{highlight}
+
+\subsection{\$inspect}
+Svelte mette a disposizione un utile strumento di debug,
+ovvero la variabile \important{\$inspect} che permette di visualizzare
+lo stato attuale di una variabile.
+\begin{verbatim}
+<script lang='ts'>
+    let username = $state('');
+    $inspect(username);
+</script>
+
+<input type='text' bind:value={username} />
+<h1>Hello {username}</h1>
+\end{verbatim}
+Questo codice ci permette di vedere qualsiasi modifica alla 
+variabile \texttt{username} nella console del browser.
+
+\section{Componenti}
+Svelte permette di creare componenti riutilizzabili.
+Un componente è un file Svelte che può essere importato in un altro file Svelte.
+
+\subsection{Creare un componente}
+Per creare un componente, basta creare un file Svelte con il codice del componente
+e importarlo nel file principale.
+\begin{verbatim}
+// src/components/userInpit.svelte
+
+<script lang='ts'>
+    let username = $state('');
+</script>
+
+<input type='text' bind:value={username} />
+<h1>Hello {username}</h1>
+
+
+// src/routes/+page.svelte
+
+<script lang='ts'>
+    import UserInput from '../components/userInput.svelte';
+</script>
+
+<UserInput />
+\end{verbatim}
+Possiamo poi passare delle proprietà al componente, in modo da renderlo più flessibile.
+
+Tali proprietà possono essere di due tipi, normali o children:
+\begin{highlight}
+    \begin{verbatim}
+        <Component prop1={value1} prop2={value2}>
+            <h1>Children</h1>
+        </Component>
+    \end{verbatim}
+\end{highlight}
+
+\subsection{Proprietà normali}
+Supponiamo quindi di voler utilizzare la componente \texttt{UserInput}
+in modo tale da passare un valore di default per l'input.
+
+\begin{verbatim}
+// src/components/userInpit.svelte
+
+<script lang='ts'>
+    interface UserInputProps {
+        username: string;
+    }
+
+    let { username }: UserInputProps = $props();
+</script>
+
+<input type="text" bind:value={username} placeholder="Enter your name" />
+
+<h1>{username}</h1>
+
+
+// src/routes/+page.svelte
+<script>
+    import UserInput from "$lib/components/userInput.svelte";
+</script>
+
+<UserInput username={"mario"} />
+\end{verbatim}
+
+Qui abbiamo definito un'interfaccia \texttt{UserInputProps} che definisce
+le proprietà che il componente accetta. 
+Abbiamo poi utilizzato la funzione \texttt{\$props()} per ottenere le proprietà
+passate al componente.
+
+\subsection{Proprietà children}
+Supponiamo poi di voler stampare un messaggio tramite la nostra 
+componente \texttt{UserInput}.
+
+Per farlo dobbiamo definire nell'interfaccia \texttt{children}
+come uno \texttt{Snippet} e utilizzare la direttiva \texttt{@render}
+per renderizzare il contenuto nella componente. Vedremo meglio
+entrambi i concetti nei prossimi capitoli.
+
+\begin{verbatim}
+// src/components/userInpit.svelte
+
+<script lang='ts'>
+	import type { Snippet } from "svelte";
+
+    interface UserInputProps {
+        children: Snippet;
+        username: string;
+    }
+
+    let { username, children }: UserInputProps = $props();
+</script>
+
+<input type="text" bind:value={username} placeholder="Enter your name" />
+
+<h1>{username}</h1>
+
+<p>
+    {@render children()}
+</p>
+
+
+// src/routes/+page.svelte
+<script>
+    import UserInput from "$lib/components/userInput.svelte";
+</script>
+
+<UserInput username={"mario"}>
+    <h2>Messaggio renderizzato dalla componente</h2>
+</UserInput>
+\end{verbatim}
 \end{document}
