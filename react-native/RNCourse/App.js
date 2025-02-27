@@ -8,7 +8,7 @@ export default function App() {
                     style={styles.textInput}
                     placeholder="Your course Goal!"
                 />
-                <Button title="Add Goal" />
+                <Button style={styles.button} title="Add Goal" />
             </View>
             <View>
                 <Text>Course Goals</Text>
@@ -36,5 +36,8 @@ const styles = StyleSheet.create({
         padding: 10,
         width: "80%",
         marginRight: 10,
+    },
+    button: {
+        verticalAlign: "middle",
     },
 });
