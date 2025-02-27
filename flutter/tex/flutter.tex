@@ -202,10 +202,29 @@ viene creato una sola volta e poi riferito.
   void main() {
     runApp(const juuMaterialApp(home: Text('Hello World!')));
   }
-  \end{verbatim}
+\end{verbatim}
 
+\section{Widget}
+Per creare un widget personalizzato, è necessario creare una nuova classe
+che estende la classe \textit{StatelessWidget} o \textit{StatefulWidget}.
 
+\subsection{StatelessWidget}
+Un \textit{StatelessWidget} è un widget che non può cambiare il suo stato
+durante l'esecuzione del programma. Questo significa che una volta creato
+un \textit{StatelessWidget}, non sarà possibile modificarlo.
 
+Un \textit{StatelessWidget} deve implementare il metodo \textit{build()} che
+restituisce un widget. Poiché si tratta di 
+una sovrascrittura, è necessario utilizzare l'annotazione \textit{@override}. Infine 
+il metodo \textit{build()} deve prendere in input un oggetto di tipo \textit{BuildContext}.
+\begin{verbatim}
+class MyWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Text('Hello World!');
+  }
+}
+\end{verbatim}
 
 
 
