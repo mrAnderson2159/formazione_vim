@@ -1,6 +1,9 @@
 import { StyleSheet, Text, View, Button, TextInput } from "react-native";
 
 export default function App() {
+    {
+        /* STUDIA LA LEZIONE SU FLEXBOX*/
+    }
     return (
         <View style={styles.appContainer}>
             <View style={styles.inputContainer}>
@@ -13,9 +16,9 @@ export default function App() {
             <View>
                 <Text>Course Goals</Text>
                 <View>
-                    <Text>Goal 1</Text>
-                    <Text>Goal 2</Text>
-                    <Text>Goal 3</Text>
+                    {["Goal 1", "Goal 2", "Goal 3"].map((goal) => (
+                        <Text key={goal}>{goal}</Text>
+                    ))}
                 </View>
             </View>
         </View>
