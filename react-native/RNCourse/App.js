@@ -4,7 +4,17 @@ export default function App() {
     return (
         <View style={styles.container}>
             <Text style={styles.text}>Hello world!</Text>
-            <Text style={styles.text}>Welcome to React Native!</Text>
+            <Text
+                style={{
+                    ...styles.text,
+                    margin: 16,
+                    borderWidth: 2,
+                    borderColor: "red",
+                    padding: 16,
+                }}
+            >
+                Welcome to React Native!
+            </Text>
             <Button title="Press me" onPress={() => alert("Button pressed")} />
         </View>
     );
