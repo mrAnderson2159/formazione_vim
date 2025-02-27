@@ -158,6 +158,25 @@ Tuttavia la funzione \textit{runApp()} non accetta un widget qualsiasi,
 ma un widget di tipo \textit{Widget}, nello specifico un \textit{\textbf{MaterialApp}}.
 
 
+\section{Funzioni}
+In Dart, le funzioni prendono
+parametri posizionali e non posizionali. Una funzione
+viene dichiarata come:
+\begin{verbatim}
+tipo nomeFunzione({parametro1, parametro2}) { // questi sono parametri posizionali
+  // corpo della funzione
+}
+
+tipo nomeFunzione2({parametro1, parametro2}) { // questi sono parametri non posizionali
+  // corpo della funzione
+}
+\end{verbatim}
+
+Queste vengono richiamate come segue:
+\begin{verbatim} 
+nomeFunzione(valore1, valore2);
+nomeFunzione2(parametro1: valore1, parametro2: valore2);
+\end{verbatim}
 
 
 
