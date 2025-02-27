@@ -117,4 +117,57 @@ A questo punto esistono tre modi per eseguire l'applicazione:
     \item Cliccare sulla barra del menù \textit{Esegui} e selezionare
     \textit{Esegui senza debug}.
 \end{enumerate}
+
+\section{main.dart}
+Il file \textit{main.dart} è il file principale del progetto 
+Flutter, in questa sezione vedremo come è strutturato.
+
+\subsection{Struttura}
+La funzione fondamentale di main.dart è la funzione 
+\textit{runApp()}, che permette di eseguire l'applicazione.
+
+Essa a sua volta deve essere chiamata all'interno di una funzione
+\textit{main()}, che è la funzione principale del programma.
+
+La funzione \textit{runApp()} non è \textit{nativa} di Dart,
+pertanto è necessario importare il pacchetto \textit{flutter/material.dart}.
+
+Un file dart ha quindi sempre una struttura del genere:
+\begin{verbatim}
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(...);
+}
+\end{verbatim}
+
+\subsection{Widget}
+In Flutter, tutto è un widget. Un widget è un elemento grafico
+che può essere un bottone, un'immagine, un testo, ecc.
+
+La funzione \textit{runApp()} prende in input un widget, che sarà
+il widget principale dell'applicazione.
+
+Fortunatamente Flutter è ben documentato e mette a disposizione
+una vasta gamma di widget predefiniti, che possono essere combinati
+per creare interfacce complesse. Questi widget si possono
+trovare nella documentazione ufficiale di Flutter consultabile
+all'indirizzo \url{https://docs.flutter.dev/ui/widgets}.
+
+Tuttavia la funzione \textit{runApp()} non accetta un widget qualsiasi,
+ma un widget di tipo \textit{Widget}, nello specifico un \textit{\textbf{MaterialApp}}.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 \end{document}
