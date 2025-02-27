@@ -68,13 +68,29 @@
 
 % Esempio di sezione
 \section{Introduzione}
-Questi sono gli appunti di formazione per l'utilizzo di React-Native.
+React-Native è un framework per lo sviluppo di applicazioni mobile, sviluppato da Facebook. 
+Questo framework permette di creare applicazioni mobile per Android e iOS utilizzando JavaScript e React.
 
+\subsection{Differenze tra React e React-Native}
+Già dal principio possiamo notare alcune differenze tra i due linguaggi, soprattutto
+per quanto riguarda i componenti. Infatti, mentre React utilizza componenti HTML, React-Native
+utilizza componenti nativi per Android e iOS.
+
+Laddove ad esempio in React si utilizza un tag \texttt{<div>}, in React-Native si utilizza un
+\texttt{<View>}. Inoltre, mentre in React si utilizza un tag \texttt{<input>}, in React-Native si
+utilizza un \texttt{<TextInput>} e così via.
+
+\subsection{Expo}
+Expo è un framework che permette di sviluppare applicazioni React-Native senza la necessità di
+installare Android Studio o XCode. Expo permette di testare le applicazioni dire
+sul proprio smartphone, senza la necessità di emulatori.
+
+Per iniziare a sviluppare con Expo, è sufficiente lanciare il comando
 \begin{highlight}
-Questa è un'area evidenziata per definizioni importanti o esempi pratici.
+\begin{verbatim}
+npx create-expo-app@latest --template blank
+\end{verbatim}
 \end{highlight}
-
-\subsection{Obiettivi}
-L'obiettivo principale di questi appunti è fornire un supporto chiaro e organizzato per lo studio.
+Usiamo \texttt{--template blank} per creare un progetto vuoto.
 
 \end{document}
