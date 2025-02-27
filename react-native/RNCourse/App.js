@@ -4,7 +4,10 @@ export default function App() {
     return (
         <View style={styles.appContainer}>
             <View style={styles.inputContainer}>
-                <TextInput placeholder="Your course Goal!" />
+                <TextInput
+                    style={styles.textInput}
+                    placeholder="Your course Goal!"
+                />
                 <Button title="Add Goal" />
             </View>
             <View>
@@ -26,5 +29,12 @@ const styles = StyleSheet.create({
     inputContainer: {
         flexDirection: "row",
         justifyContent: "space-between",
+    },
+    textInput: {
+        borderColor: "#ccc",
+        borderWidth: 1,
+        padding: 10,
+        width: "80%",
+        marginRight: 10,
     },
 });
