@@ -1,12 +1,11 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Button } from "react-native";
 
 export default function App() {
     return (
         <View style={styles.container}>
             <Text style={styles.text}>Hello world!</Text>
             <Text style={styles.text}>Welcome to React Native!</Text>
-            <StatusBar style="auto" />
+            <Button title="Press me" onPress={() => alert("Button pressed")} />
         </View>
     );
 }
@@ -19,7 +18,6 @@ const styles = StyleSheet.create({
         justifyContent: "center",
     },
     text: {
-        // Stile corretto per il testo
         fontSize: 30,
         marginBottom: 10,
     },
