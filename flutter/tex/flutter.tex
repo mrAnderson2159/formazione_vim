@@ -118,6 +118,27 @@ A questo punto esistono tre modi per eseguire l'applicazione:
     \textit{Esegui senza debug}.
 \end{enumerate}
 
+\section{Funzioni}
+In Dart, le funzioni prendono
+parametri posizionali e non posizionali. Una funzione
+viene dichiarata come:
+\begin{verbatim}
+tipo nomeFunzione({parametro1, parametro2}) { // questi sono parametri posizionali
+  // corpo della funzione
+}
+
+tipo nomeFunzione2({parametro1, parametro2}) { // questi sono parametri non posizionali
+  // corpo della funzione
+}
+\end{verbatim}
+
+Queste vengono richiamate come segue:
+\begin{verbatim} 
+nomeFunzione(valore1, valore2);
+nomeFunzione2(parametro1: valore1, parametro2: valore2);
+\end{verbatim}
+
+
 \section{main.dart}
 Il file \textit{main.dart} è il file principale del progetto 
 Flutter, in questa sezione vedremo come è strutturato.
@@ -157,26 +178,31 @@ all'indirizzo \url{https://docs.flutter.dev/ui/widgets}.
 Tuttavia la funzione \textit{runApp()} non accetta un widget qualsiasi,
 ma un widget di tipo \textit{Widget}, nello specifico un \textit{\textbf{MaterialApp}}.
 
-
-\section{Funzioni}
-In Dart, le funzioni prendono
-parametri posizionali e non posizionali. Una funzione
-viene dichiarata come:
+\subsection{MaterialApp}
+\textit{MaterialApp} è un widget che implementa il design di Material Design,
+il design system di Google. Questo widget è il widget principale. Questa porzione di codice genera un titolo "Hello World" in cima ad un'applicazione vuota.
 \begin{verbatim}
-tipo nomeFunzione({parametro1, parametro2}) { // questi sono parametri posizionali
-  // corpo della funzione
-}
+import 'package:flutter/material.dart';
 
-tipo nomeFunzione2({parametro1, parametro2}) { // questi sono parametri non posizionali
-  // corpo della funzione
+void main() {
+  runApp(MaterialApp(home: Text('Hello World!')));
 }
 \end{verbatim}
 
-Queste vengono richiamate come segue:
-\begin{verbatim} 
-nomeFunzione(valore1, valore2);
-nomeFunzione2(parametro1: valore1, parametro2: valore2);
-\end{verbatim}
+\subsection{const}
+In Dart, la keyword \textit{const} viene utilizzata per creare
+oggetti immutabili. Questo significa che una volta creato un oggetto con \textit{const}, non sarà possibile modificarlo.
+
+Inoltre il risultato in memoria sarà più veloce, poiché l'oggetto
+viene creato una sola volta e poi riferito.
+
+\begin{verbatim}
+  import 'package:flutter/material.dart';
+  
+  void main() {
+    runApp(const juuMaterialApp(home: Text('Hello World!')));
+  }
+  \end{verbatim}
 
 
 
