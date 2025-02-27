@@ -6,6 +6,7 @@ void main() {
       home: Scaffold(
         body: Container(
           decoration: const BoxDecoration(
+            // Add a gradient background
             gradient: LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
@@ -15,7 +16,12 @@ void main() {
               ],
             ),
           ),
-          child: const Center(child: Text('Hello World!')),
+          child: const Center(
+            child: Text(
+              'Hello World!',
+              style: TextStyle(fontSize: 28, color: Colors.white),
+            ),
+          ),
         ),
       ),
     ),
