@@ -96,4 +96,31 @@ npx create-expo-app@latest --template blank
 \end{highlight}
 Usiamo \texttt{--template blank} per creare un progetto vuoto.
 
+
+\section{Flexbox}
+Flexbox è un sistema di layout che permette di organizzare gli elementi in una griglia flessibile.
+In React-Native, Flexbox è il sistema di layout predefinito.
+
+Il {\bf comportamento di default} consiste nell'organizzare una serie di elementi su 
+una colonna. Quindi dato un container flex, gli elementi figli verranno disposti
+{\bf uno sotto l'altro}.
+
+Questo comportamento può essere modificato tramite la proprietà \texttt{flexDirection}.
+
+\subsection{flexDirection}
+Vediamo nel dettaglio le possibilità offerte da \texttt{flexDirection}:
+\begin{itemize}
+\item \texttt{column} (default): gli elementi vengono disposti uno sotto l'altro.
+\item \texttt{row}: gli elementi vengono disposti uno accanto all'altro.
+\item \texttt{row-reverse}: gli elementi vengono disposti uno accanto all'altro, ma in ordine inverso.
+\item \texttt{column-reverse}: gli elementi vengono disposti uno sotto l'altro, ma in ordine inverso.
+\item \texttt{wrap}: gli elementi vengono disposti su più righe.
+\end{itemize}
+
+\subsection{Dimensioni}
+Se il contenitore non specifica le dimensioni, né le specificano i figli,
+questi occuperanno esattamente lo spazio necessario per il loro contenuto.
+Tuttavia se specifichiamo le dimensioni del contenitore, allora i figli
+si adatteranno a queste dimensioni.
+
 \end{document}
