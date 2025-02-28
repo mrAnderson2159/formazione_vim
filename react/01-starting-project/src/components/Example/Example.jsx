@@ -4,7 +4,7 @@ import TabButton from "../UI elements/TabButton";
 import "./Example.css";
 
 export default function Example() {
-    const [activeTab, setActiveTab] = useState("Components");
+    const [activeTab, setActiveTab] = useState("");
     const [exemple, setExemple] = useState({});
 
     useEffect(() => {
@@ -22,11 +22,18 @@ export default function Example() {
                 ))}
             </menu>
             <div id="tab-content">
-                <h3>{exemple.title}</h3>
-                <p>{exemple.description}</p>
-                <pre>
-                    <code>{exemple.code}</code>
-                </pre>
+                {!activeTab ? (
+                    <p>Select an example to see its details.</p>
+                ) : null}
+                {exemple && (
+                    <>
+                        <h3>{exemple.title}</h3>
+                        <p>{exemple.description}</p>
+                        <pre>
+                            <code>{exemple.code}</code>
+                        </pre>
+                    </>
+                )}
             </div>
         </div>
     );
