@@ -122,4 +122,56 @@ Infine se volessimo compilare il progetto per la produzione, possiamo eseguire i
 cargo build --release
 \end{verbatim}
 
+\pagebreak
+\section{Variabili}
+In rust le variabili sono tipate e si possono dichiarare in due modi:
+\begin{verbatim}
+let x = 5;
+let y: i32 = 10;
+\end{verbatim}
+Di default esse sono immutabili, pertanto, per dichiarare una 
+variabile mutabile, è necessario utilizzare la keyword \texttt{mut}:
+\begin{verbatim}
+let mut x = 5;
+x = 10;
+\end{verbatim}
+Per quanto riguarda le costanti è convenzione scriverle in maiuscolo
+in sneak case:
+\begin{verbatim}
+const MAX_POINTS: u32 = 100_000;
+\end{verbatim}
+
+\section{Tipi di dato}
+\subsection{Primitivi}
+Rust è un linguaggio staticamente tipato, il che significa che
+deve sapere i tipi di tutte le variabili a tempo di compilazione.
+I tipi di dato primitivi sono i seguenti:
+\begin{itemize}
+    \item \texttt{bool}: booleano
+    \item \texttt{char}: carattere
+    \item \texttt{i8}, \texttt{i16}, \texttt{i32}, \texttt{i64}, \texttt{i128}: interi con segno
+    \item \texttt{u8}, \texttt{u16}, \texttt{u32}, \texttt{u64}, \texttt{u128}: interi senza segno
+    \item \texttt{f32}, \texttt{f64}: numeri in virgola mobile
+\end{itemize}
+
+\subsection{Composti}
+I tipi di dato composti sono i seguenti:
+\begin{itemize}
+    \item \texttt{string}: sequenza di caratteri
+    \item \texttt{array}: collezione di valori dello stesso tipo
+    \item \texttt{vector}: collezione di valori dello stesso tipo di lunghezza variabile
+    \item \texttt{tuple}: collezione di valori di tipi diversi    
+\end{itemize}
+
+\subsubsection{Stringhe}
+Le stringhe a seconda di come vengono dichiarate possono essere
+fisse o variabili. Per dichiarare una stringa fissa, dichiariamo
+un "puntatore" a stringa, utilizzando il tipo \texttt{\&str} e le virgolette.
+Per le stringhe variabili utiliziamo il tipo \texttt{String} e 
+il metodo \texttt{String::from}:
+\begin{verbatim}
+let s1: &str = "Hello, World!";
+let s2: String = String::from("Hello, World!");
+\end{verbatim}
+
 \end{document}
