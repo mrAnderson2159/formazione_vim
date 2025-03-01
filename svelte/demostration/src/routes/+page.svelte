@@ -1,12 +1,12 @@
-<script>
-    import UserInput from "$lib/components/userInput.svelte";
+<script lang="ts">
+    let userName = $state('Valerio');
 </script>
 
-<UserInput username={"mario"}>Messaggio scritto dalla componente</UserInput>
+{#snippet userInput(exempleString: string)}
+    <h1>{exempleString}</h1>
+    <h2>Your username</h2>
+    <input type="text" bind:value={userName} placeholder="Enter your name" />
+    <p>{userName}</p>
+{/snippet}
 
-<style>
-    h1 {
-        color: blue;
-        font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
-    }
-</style>
+{@render userInput('Example 1')}
