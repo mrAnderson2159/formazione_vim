@@ -12,8 +12,7 @@ export default function Example() {
     }, [activeTab]);
 
     return (
-        <div id="examples">
-            <h2>Examples</h2>
+        <>
             <menu>
                 {Object.keys(EXAMPLES).map((example) => (
                     <TabButton
@@ -39,6 +38,6 @@ export default function Example() {
                     </>
                 )}
             </div>
-        </div>
+        </>
     );
 }

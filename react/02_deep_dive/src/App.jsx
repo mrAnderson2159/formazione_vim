@@ -1,4 +1,5 @@
 import Header from "./components/Header/Header";
+import Section from "./components/UI elements/Section";
 import MainList from "./components/MainList/MainList";
 import Example from "./components/Example/Example";
 
@@ -7,12 +8,12 @@ function App() {
         <>
             <Header />
             <main>
-                <section>
+                <Section title="Core Concepts" id="core-concepts">
                     <MainList />
-                </section>
-                <section style={{ marginTop: "2rem" }}>
+                </Section>
+                <Section title="Examples" id="examples">
                     <Example />
-                </section>
+                </Section>
             </main>
         </>
     );

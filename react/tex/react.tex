@@ -165,4 +165,149 @@ Invece in un file so possono esportare più variabili {\it nominali},
 tuttavia quando vengono importate, devono essere importate con lo stesso
 nome con cui sono state esportate e {\bf devono essere racchiuse tra parentesi graffe}.
 
+
+
+
+\section{Forward Props}
+Supponiamo di avere una componente {\tt Card} 
+che restituisce degli elementi HTML. Supponiamo di voler
+applicare ad uno (o più) di questi elementi una classe CSS
+che viene passata come parametro alla componente stessa e magari
+un ID.
+
+Nel provare ad applicare queste proprietà alla componente
+{\tt Card} ci si accorge che queste non vengono automaticamente
+passate agli elementi desiderati, e React si limiterà 
+ad ignorarle nel DOM.
+
+\begin{verbatim}
+// src/App.jsx
+import Card from "./components/Card";
+
+export default function App() {
+    return (
+        <div>
+            <Card className="card" id="card-1">
+                <h2>Card Title</h2>
+                <p>Card description</p>
+            </Card>
+        </div>
+    );
+}
+
+// src/components/Card.jsx   <---- Errore
+export default function Card({children}) {
+    return (
+        <div className={className} id={id}>
+            {children}
+        </div>
+    );
+}
+\end{verbatim}
+Un'alternativa sarebbe impostare esplicitamente questi parametri
+nella signature della funzione, ma questo non è una buona pratica
+perché rende la componente meno flessibile:
+
+\begin{verbatim}
+// src/components/Card.jsx
+
+export default function Card({children, className, id}) {
+    return (
+        <div className={className} id={id}>
+            {children}
+        </div>
+    );
+}
+\end{verbatim}
+
+La soluzione consiste nell'utilizzare la proprietà del {\tt rest operator}
+nativo di JavaScript, che permette di passare tutte le proprietà
+che non sono state esplicitamente dichiarate nella signature della funzione
+ad un oggetto.
+
+\begin{verbatim}
+// src/components/Card.jsx
+
+export default function Card({children, ...props}) {
+    return (
+        <div id={props.id} className={props.className}>
+            {children}
+        </div>
+    );
+}
+\end{verbatim}
+
+O, se vogliamo passare tutte queste proprietà ad un singolo
+elemento, che magari è proprio il contenitore della componente,
+possiamo passare direttamente il {\tt rest operator} all'elemento
+stesso.
+
+\begin{verbatim}
+// src/components/Card.jsx
+
+export default function Card({children, ...props}) {
+    return (
+        <div {...props}>
+            {children}
+        </div>
+    );
+}
+\end{verbatim}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 \end{document}
