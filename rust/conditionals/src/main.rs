@@ -20,4 +20,12 @@ fn main() {
     }
 
     println!("Grade: {}", grade);
+
+    println!("foo returns: {}", foo());
+}
+
+fn foo() -> i32{
+    let a: i32;
+    a = 5;
+    a
 }
