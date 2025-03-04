@@ -566,69 +566,198 @@ dell'applicazione.
     SvelteKit viene installato automaticamente in un'applicazione
     Svelte
 \end{highlight}
+\subsection{Componenti Frontend}
+Le componenti frontend in \textbf{SvelteKit} sono rappresentate
+principalmente dai file che iniziano con il simbolo \texttt{+}
+e che si trovano all'interno della cartella \texttt{src/routes}
+o nelle sue sottodirectory.
 
-\subsection{Frontend components}
-\subsubsection{page}
-\subsubsection{layout}
+\subsubsection{Page}
+Alla creazione di una nuova app \textbf{SvelteKit}, nella cartella
+\texttt{src/routes} viene generato il file \texttt{+page.svelte},
+che rappresenta la pagina principale dell'applicazione.
+Sebbene possa sembrare l'entry point dell'app, in realtà
+il vero entry point è il file \texttt{src/app.html}, che
+si occupa di caricare la pagina principale all'interno del
+\texttt{body} dell'HTML.
 
+La struttura di \texttt{+page.svelte} è ricorrente ed è
+il meccanismo con cui \textbf{SvelteKit} gestisce il 
+\textit{routing} dell’applicazione.
 
+\begin{itemize}
+    \item La pagina principale, accessibile all'indirizzo \texttt{/},
+    è definita nel file \texttt{routes/+page.svelte}.
+    \item Se vogliamo una pagina accessibile all’indirizzo \texttt{/blog},
+    questa dovrà essere definita nel file \texttt{routes/blog/+page.svelte}.
+\end{itemize}
 
+La gerarchia delle cartelle in \texttt{src/routes} riflette
+direttamente la struttura degli URL, facilitando la gestione
+delle pagine.
 
+\subsubsection{Layout}  
+In \textbf{SvelteKit}, un \textit{layout} definisce una
+struttura comune per un gruppo di pagine correlate.
 
+Se creiamo un file \texttt{+layout.svelte} all'interno
+della cartella \texttt{src/routes/blog}, tutte le pagine
+contenute in \texttt{src/routes/blog} erediteranno
+automaticamente quel layout.
 
+Se una sottocartella di \texttt{src/routes/blog} definisce
+un proprio layout, verrà applicata una gerarchia di layout
+annidati, con ciascun livello che eredita quelli superiori.
 
+\begin{highlight}
+    È essenziale ricordarsi di renderizzare i \textit{children}!
+\end{highlight}
 
+Un aspetto cruciale dei layout è la necessità di renderizzare
+il contenuto delle pagine figlie. Se omettiamo questo passaggio,
+navigando in un ramo vedremo soltanto il layout, senza
+il contenuto della pagina stessa.
 
+Per risolvere questo problema, dobbiamo sempre includere il
+seguente codice nel nostro layout:
 
+\begin{verbatim}
+<script lang='ts'>
+    const data = $props();
+</script>
 
+...
 
+{@render data.children()}
 
+... 
+\end{verbatim}
 
+\subsubsection{Pagine dinamiche}
+Se vogliamo creare un sistema di articoli raggiungibili
+tramite URL dinamici, come \texttt{/blog/n}, \textbf{SvelteKit}
+ci consente di farlo creando una cartella speciale:
 
+\texttt{src/routes/blog/[articleid]}.
 
+\begin{highlight}
+    La cartella \texttt{[articleid]} è una cartella speciale
+    che consente di creare pagine dinamiche. Deve essere
+    racchiusa tra parentesi quadre.
+\end{highlight}
 
+\subsection{Pagine TypeScript}
+\textbf{SvelteKit} consente di scrivere pagine direttamente in
+\textbf{TypeScript}, permettendo l'esecuzione sia lato server
+che lato client.
 
+\subsection{Componenti Backend}
+Le componenti backend in \textbf{SvelteKit} sono costituite
+dai file che contengono la parola \texttt{server} nel nome.
 
+\subsubsection{Page Server}
+Un file come \texttt{+page.server.ts} viene eseguito lato server.
+Può essere utilizzato per operazioni non eseguibili lato client,
+come l'accesso al database o le chiamate API.
 
+Se ci troviamo nella cartella \texttt{routes/blog/[articleid]}
+e creiamo il file \texttt{+page.server.ts} accanto a
+\texttt{+page.svelte}, possiamo definire una funzione asincrona
+per caricare i dati lato server:
 
+\begin{verbatim}
+import type { PageServerLoad } from './$types';
 
+export const load: PageServerLoad = async ({ params }) => {
+    console.log(params);
 
+    return {
+        blogPost: 'This is the example blog post'
+    };
+};
+\end{verbatim}
 
+Quando il client effettua una richiesta \texttt{GET /blog/[articleid]},
+il server eseguirà la funzione \texttt{load}, e nella console
+vedremo un output simile a:
 
+\begin{verbatim}
+{ articleid: 'n' }
+\end{verbatim}
 
+Se poi nel file \texttt{routes/blog/[articleid]/+page.svelte}
+aggiungiamo:
 
+\begin{verbatim}
+<script lang='ts'>
+    const data = $props();
+    $inspect(data);
+</script>
 
+<h1>Blog Article</h1>    
+\end{verbatim}
 
+Vedremo comparire sulla console del server e del browser
+i dati ricevuti dal backend:
 
+\begin{verbatim}
+init { data: { blogPost: 'This is the example blog post' }, form: null }
+\end{verbatim}
 
+Ciò significa che \texttt{data.blogPost} è stato
+correttamente fornito al frontend dal backend.
 
+Tuttavia, nella maggior parte dei casi reali, i dati non
+sono semplicemente statici, ma provengono da un database
+oppure da un'API esterna. Per simulare un contesto più
+realistico, possiamo immaginare di avere un array di
+articoli già disponibili e di voler recuperare quello
+corrispondente all'\texttt{articleid} ricevuto nella
+richiesta.
 
+Ecco un esempio pratico:
+\begin{verbatim}
+// src/routes/blog/[articleid]/+page.server.ts
+import { error } from '@sveltejs/kit';
+import type { PageServerLoad } from './$types';
 
+export const load: PageServerLoad = async ({ params }) => {
+	const fetchedArticles = [
+		{
+			id: '0',
+			text: "This is the first article's text"
+		},
+		{
+			id: '1',
+			text: "This is the second article's text"
+		}
+	];
 
+	const findArticle = fetchedArticles.find((article) => article.id === params.articleid);
 
+	if (findArticle) {
+		return {
+			blogPost: findArticle.text
+		};
+	}
 
+	throw error(404, 'Article not found');
+};
+\end{verbatim}
+\pagebreak
+\begin{verbatim}
+// src/routes/blog/[articleid]/+page.svelte
+<script lang='ts'>
+    const {data} = $props();
 
+    const {blogPost} = data;
+</script>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<h1>Blog Article</h1>
+<p>{blogPost}</p>
+\end{verbatim}
+In questo modo, il contenuto dell'articolo selezionato
+verrà mostrato dinamicamente all'interno della pagina.
 
 
 
