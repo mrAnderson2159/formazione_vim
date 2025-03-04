@@ -383,8 +383,94 @@ Qui abbiamo semplicemente salvato la logica precedente in due variabili:
 \texttt{tabsContent} e \texttt{buttons}, quindi abbiamo passato queste
 variabili come {\it slot} e {\it children} alla componente \texttt{Tabs}.
 
+\subsection{Custom HTML Elements}
+Una volta creata la nostra componente \texttt{Tabs}, potremmo 
+volerla rendere più flessibile. Ad esempio, potremmo non voler 
+utilizzare sempre il tag \texttt{<menu>}, ma scegliere tra 
+\texttt{<ul>}, \texttt{<div>} o altri elementi HTML.  
+
+Per ottenere questo risultato, possiamo passare il nome del tag 
+come proprietà alla componente \texttt{Tabs}, seguendo una 
+sintassi specifica.
+
+Vediamo un esempio e analizziamo il codice:
+
+\begin{verbatim}
+// src/components/UI elements/Tabs.jsx
+export default function Tabs({ children, buttons, buttonsContainer }) {
+    const ButtonsContainer = buttonsContainer || "menu";
+    return (
+        <>
+            <ButtonsContainer>{buttons}</ButtonsContainer>
+            {children}
+        </>
+    );
+}
+
+// src/components/Example/Example.jsx
+\vdots
+
+    return (
+        <>
+            <Tabs buttonsContainer="menu" buttons={buttons}>
+                {tabsContent}
+            </Tabs>
+        </>
+    );
+\end{verbatim}
+
+Abbiamo aggiunto alla componente \texttt{Tabs} una nuova 
+proprietà, \texttt{buttonsContainer}, che accetta il nome del 
+tag HTML da usare per contenere i pulsanti.  
+
+Per far sì che tutto funzioni correttamente, è essenziale 
+assegnare il valore della proprietà a una variabile con il nome 
+\textbf{in maiuscolo}. In React, i tag scritti in minuscolo vengono 
+interpretati come elementi HTML standard, mentre quelli in 
+maiuscolo vengono trattati come componenti React o elementi 
+dinamici.
+
+Nel codice della componente \texttt{Example}, abbiamo passato 
+\texttt{"menu"} alla proprietà \texttt{buttonsContainer}, così 
+\texttt{Tabs} utilizzerà il tag \texttt{<menu>} per racchiudere 
+i pulsanti.
+
+Più semplicemente possiamo impostare direttamente il parametro con 
+una lettera maiuscola saltando un passaggio:
+\begin{verbatim}
+// src/components/UI elements/Tabs.jsx
+export default function Tabs({ children, buttons, ButtonsContainer }) {
+    return (
+        <>
+            <ButtonsContainer>{buttons}</ButtonsContainer>
+            {children}
+        </>
+    );
+}
 
 
+// src/components/Example/Example.jsx
+\vdots
+
+    return (
+        <>
+            <Tabs ButtonsContainer="menu" buttons={buttons}>
+                {tabsContent}
+            </Tabs>
+        </>
+    );
+
+\end{verbatim}
+
+\begin{highlight}
+    Possiamo anche passare componenti personalizzate utilizzando
+    ad esempio 
+    \begin{verbatim}
+        <Tabs buttonsContainer={MyCustomComponent} buttons={buttons}>
+            {tabsContent}
+        </Tabs>
+    \end{verbatim}
+\end{highlight}
 
 
 
