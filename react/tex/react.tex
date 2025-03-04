@@ -254,8 +254,134 @@ export default function Card({children, ...props}) {
 }
 \end{verbatim}
 
+\section{Slots}
+I {\it slots} sono delle aree vuote all'interno di una componente
+che possono essere riempite con altri elementi. 
+Questo permette di creare componenti più flessibili e riutilizzabili.
 
+Osserviamo questo codice dalla prima applicazione fatta in React:
+\begin{verbatim}
+// src/components/Example/Example.jsx
+import { useState, useEffect } from "react";
+import { EXAMPLES } from "../../data";
+import TabButton from "../UI elements/TabButton";
+import "./Example.css";
 
+export default function Example() {
+    const [activeTab, setActiveTab] = useState("");
+    const [exemple, setExemple] = useState({});
+
+    useEffect(() => {
+        setExemple(EXAMPLES[activeTab.toLowerCase()]);
+    }, [activeTab]);
+
+    return (
+        <>
+            <menu>
+                {Object.keys(EXAMPLES).map((example) => (
+                    <TabButton
+                        isSelected={activeTab === example}
+                        clickHandler={setActiveTab}
+                        key={example}
+                    >
+                        {example}
+                    </TabButton>
+                ))}
+            </menu>
+            <div id="tab-content">
+                {!activeTab ? (
+                    <p>Select an example to see its details.</p>
+                ) : null}
+                {exemple && (
+                    <>
+                        <h3>{exemple.title}</h3>
+                        <p>{exemple.description}</p>
+                        <pre>
+                            <code>{exemple.code}</code>
+                        </pre>
+                    </>
+                )}
+            </div>
+        </>
+    );
+}
+\end{verbatim}
+
+Possiamo notare che di base questo file contiene un \texttt{<menu>} 
+che a sua volta contiene dei \texttt{<TabButton>}, e un \texttt{<div>}
+che contiene il contenuto della tab selezionata.
+
+Ha senso pensare che in un'applicazione più complessa, questa struttura
+di menu e tab possa essere riutilizzata in altre parti dell'applicazione.
+Per questo motivo, possiamo trasformare questa struttura in una componente
+che accetta il contenuto come un {\it children}, mentre i pulsanti
+possono essere passati come {\it slots}.
+
+\pagebreak
+A questo scopo creeremo la componente \texttt{Tabs}:
+\begin{verbatim}
+// src/components/UI elements/Tabs.jsx
+export default function Tabs({ children, buttons }) {
+    return (
+        <>
+            <menu>{buttons}</menu>
+            {children}
+        </>
+    );
+}
+
+// src/components/Example/Example.jsx
+import { useState, useEffect } from "react";
+import { EXAMPLES } from "../../data";
+import TabButton from "../UI elements/TabButton";
+import Tabs from "../UI elements/Tabs";
+import "./Example.css";
+
+export default function Example() {
+    const [activeTab, setActiveTab] = useState("");
+    const [exemple, setExemple] = useState({});
+
+    useEffect(() => {
+        setExemple(EXAMPLES[activeTab.toLowerCase()]);
+    }, [activeTab]);
+
+    const tabsContent = (
+        <div id="tab-content">
+            {!activeTab ? <p>Select an example to see its details.</p> : null}
+            {exemple && (
+                <>
+                    <h3>{exemple.title}</h3>
+                    <p>{exemple.description}</p>
+                    <pre>
+                        <code>{exemple.code}</code>
+                    </pre>
+                </>
+            )}
+        </div>
+    );
+
+    const buttons = Object.keys(EXAMPLES).map((example) => (
+        <TabButton
+            isSelected={activeTab === example}
+            clickHandler={setActiveTab}
+            key={example}
+        >
+            {example}
+        </TabButton>
+    ));
+
+    return (
+        <>
+            <Tabs buttons={buttons}>{tabsContent}</Tabs>
+        </>
+    );
+}
+\end{verbatim}
+
+\pagebreak
+Qui abbiamo semplicemente salvato la logica precedente in due variabili:
+\texttt{tabsContent} e \texttt{buttons}, quindi abbiamo passato queste
+variabili come {\it slot} e {\it children} alla componente \texttt{Tabs}.
 
 
 

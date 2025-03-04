@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { EXAMPLES } from "../../data";
 import TabButton from "../UI elements/TabButton";
+import Tabs from "../UI elements/Tabs";
 import "./Example.css";
 
 export default function Example() {
@@ -11,33 +12,34 @@ export default function Example() {
         setExemple(EXAMPLES[activeTab.toLowerCase()]);
     }, [activeTab]);
 
+    const tabsContent = (
+        <div id="tab-content">
+            {!activeTab ? <p>Select an example to see its details.</p> : null}
+            {exemple && (
+                <>
+                    <h3>{exemple.title}</h3>
+                    <p>{exemple.description}</p>
+                    <pre>
+                        <code>{exemple.code}</code>
+                    </pre>
+                </>
+            )}
+        </div>
+    );
+
+    const buttons = Object.keys(EXAMPLES).map((example) => (
+        <TabButton
+            isSelected={activeTab === example}
+            clickHandler={setActiveTab}
+            key={example}
+        >
+            {example}
+        </TabButton>
+    ));
+
     return (
         <>
-            <menu>
-                {Object.keys(EXAMPLES).map((example) => (
-                    <TabButton
-                        isSelected={activeTab === example}
-                        clickHandler={setActiveTab}
-                        key={example}
-                    >
-                        {example}
-                    </TabButton>
-                ))}
-            </menu>
-            <div id="tab-content">
-                {!activeTab ? (
-                    <p>Select an example to see its details.</p>
-                ) : null}
-                {exemple && (
-                    <>
-                        <h3>{exemple.title}</h3>
-                        <p>{exemple.description}</p>
-                        <pre>
-                            <code>{exemple.code}</code>
-                        </pre>
-                    </>
-                )}
-            </div>
+            <Tabs buttons={buttons}>{tabsContent}</Tabs>
         </>
     );
 }
