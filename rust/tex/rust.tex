@@ -174,4 +174,21 @@ let s1: &str = "Hello, World!";
 let s2: String = String::from("Hello, World!");
 \end{verbatim}
 
+
+
+\section{Ownership}
+Rust gestisce la memoria in modo molto particolare, utilizzando il concetto
+di ownership. Ogni valore in Rust ha una variabile che è la sua proprietaria.
+Quando la proprietà esce dallo scope, il valore viene deallocato.
+
+Pensiamo, per esempio, ad una stringa. La stringa è in parte allocata nello stack
+e in parte nello heap. Nello heap è allocata la sequenza di caratteri,
+mentre nello stack abbiamo un puntatore a tale sequenza, la lunghezza della stringa
+e la capacità della stringa. Se assegnamo la stringa ad un'altra variabile
+\begin{verbatim}
+let s1 = String::from("Hello, World!");
+let s2 = s1;
+\end{verbatim}
+il puntatore a stringa viene copiato, ma la proprietà viene trasferita a \texttt{s2}.
+Di conseguenza, se proviamo ad accedere a \texttt{s1} otterremo un errore.
 \end{document}
