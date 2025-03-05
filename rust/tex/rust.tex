@@ -80,6 +80,19 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 \end{verbatim}
 Mentre su Windows è possibile scaricare l'eseguibile dal sito ufficiale.
 
+\section{Rust-analyzer}
+Rust-analyzer è un'estensione per Visual Studio Code che permette di
+avere un'esperienza di programmazione in Rust più fluida. Per installarlo,
+è sufficiente cercare l'estensione nel marketplace di Visual Studio Code.
+
+Per farlo funzionare invece è necessario o aprire un progetto Rust direttamente in VSC,
+oppure bisogna modificare il file \texttt{settings.json} aggiungendo la seguente riga:
+\begin{verbatim}
+    "rust-analyzer.linkedProjects": [
+        PATH_DEL_PROGETTO
+    ],
+\end{verbatim}
+
 \section{Hello, World!}
 Per creare un programma che stampi a schermo la stringa \texttt{Hello, World!},
 è sufficiente creare un file \texttt{main.rs} con il seguente contenuto:
