@@ -39,9 +39,7 @@ export default function Example() {
 
     return (
         <>
-            <Tabs buttonsContainer="menu" buttons={buttons}>
-                {tabsContent}
-            </Tabs>
+            <Tabs buttons={buttons}>{tabsContent}</Tabs>
         </>
     );
 }
