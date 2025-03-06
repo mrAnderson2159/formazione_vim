@@ -789,8 +789,55 @@ export async function POST({ request }) {
 }
 \end{verbatim}
 
+\section{Importazioni lib/index.js}
+Un modo moderno per importare le componenti 
+è utilizzare il file \texttt{src/lib/index.js}.
+Questo file è un file di configurazione che
+ci permette di importare tutte le componenti
+che vogliamo utilizzare in un solo posto.
 
+Supponiamo di avere una cartella \texttt{src/lib/components}
+che contiene una componente \texttt{MyComponent.svelte}.
+Per importare questa componente in \texttt{src/routes/+page.svelte},
+possiamo creare il file \texttt{src/lib/components/index.js} e importare
+la componente in esso:
+\begin{verbatim}
+// src/lib/index.js
+export { default as MyComponent } from './components/MyComponent.svelte';
+\end{verbatim}
+Quindi importeremo la componente in \texttt{src/routes/+page.svelte}:
+\begin{verbatim}
+// src/routes/+page.svelte
+<script>
+    import { MyComponent } from '$components';
+</script>
 
+<MyComponent />
+\end{verbatim}
+
+A questo punto otterremo un errore poiché 
+\texttt{src/routes/+page.svelte} non sa dove cercare
+\texttt{\$components}. Per risolvere questo problema
+dobbiamo aggiungere un alias in \texttt{svelte.config.js}:
+\begin{verbatim}
+// svelte.config.js
+import adapter from '@sveltejs/adapter-auto';
+
+/** @type {import('@sveltejs/kit').Config} */
+const config = {
+	kit: {
+		// adapter-auto only supports some environments, see https://svelte.dev/docs/kit/adapter-auto for a list.
+		// If your environment is not supported, or you settled on a specific environment, switch out the adapter.
+		// See https://svelte.dev/docs/kit/adapters for more information about adapters.
+		adapter: adapter(),
+		alias: {
+			$components: './src/lib/components' // Alias for components
+		}
+	}
+};
+
+export default config;
+\end{verbatim}
 
 
 
