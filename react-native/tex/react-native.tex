@@ -161,8 +161,53 @@ In altre parole se abbiamo due elementi con \texttt{flex: 1} e \texttt{flex: 2},
 elemento occuperà il doppio dello spazio del primo.
 
 
+\section{ScrollView}
+React-native, diversamente dal web, non produce uno scroll automatico
+quando il contenuto è troppo grande per lo schermo. Per ottenere uno scroll
+possiamo utilizzare il componente \texttt{ScrollView}. 
 
+Questa componente offre alcune interessanti proprietà, alcune solo per iOS altre 
+solo per Android. Ad esempio, possiamo utilizzare la proprietà \texttt{alwaysBounceVertical}
+per abilitare lo scroll verticale anche quando non è necessario, o disattivarla se non
+vogliamo avere il "rimbalzo" quando lo scroll non è stato riempito.
 
+Come sempre possiamo trovare l'argomento nel dettaglio alla
+\href{https://reactnative.dev/docs/scrollview#alwaysbouncevertical}{documentazione ufficiale di React-Native}.
+
+\subsection{Performance}
+ScrollView risulta ottima come componente quando la necessità
+è quella di renderizzare un numero ben limitato di elementi.
+La ragione è che ScrollView renderizza tutti gli elementi figli
+in una volta sola, e quindi se abbiamo un numero elevato di elementi
+la performance ne risentirà.
+
+Per ovviare a questo problema possiamo utilizzare la componente \texttt{FlatList}.
+
+\section{FlatList}
+FlatList si usa quando il numero di elementi da visualizzare è elevato, 
+e quello che fa è renderizzare immediatamente il contenuto visibile mentre carica in maniera lazy
+il resto. 
+
+Per funzionare ha bisogno di due funzioni fondamentali: \texttt{data} e \texttt{renderItem}.
+La prima contiene i dati da visualizzare, mentre la seconda è una funzione che renderizza
+ogni elemento della lista.
+
+Vediamo un esempio: 
+\begin{verbatim}
+...
+const dummyGoals = [...Array(20_000)].map((_, i) => `Goal ${i + 1}`);
+const [goalList, setGoalList] = useState(dummyGoals);
+...
+<FlatList
+    data={goalList}
+    renderItem={(itemData) => (
+        <Text style={styles.goalItem}>{itemData.item}</Text>
+    )}
+    alwaysBounceVertical={false}
+/>
+\end{verbatim}
+Vediamo che FlatList.renderItem passa un oggetto itemData, che contieme metadata
+sugli elementi della lista passata a data, goalList in questo caso
 
 
 
