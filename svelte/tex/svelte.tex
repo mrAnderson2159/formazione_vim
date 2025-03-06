@@ -760,6 +760,34 @@ In questo modo, il contenuto dell'articolo selezionato
 verrà mostrato dinamicamente all'interno della pagina.
 
 
+\section{API e CRUD}
+Quando vogliamo implementare logica puramente di 
+backend, come l'accesso al database o le chiamate API,
+possiamo creare la directory \texttt{src/routes/api},
+al cui interno creeremo una cartella per ogni endpoint
+backend, quindi un file \texttt{+server.ts} per ogni
+endpoint.
+
+Un semplice esempio potrebbe essere un endpoint che
+conferma l'acquisto di un ebook da parte di un cliente.
+Questo si troverebbe all'indirizzo
+\texttt{/api/purchase-confirmation} stipato quindi 
+nel seguente file
+\begin{verbatim}
+// src/routes/api/purchase-confirmation/+server.ts
+import { json } from '@sveltejs/kit';
+
+export async function POST({ request }) {
+	const bodyRequest = await request.json();
+
+	console.log(bodyRequest);
+
+	// Business logic -> send an email to the costumer
+	//      and send them the bought ebook
+
+	return json({ message: 'Email sent to the costumer, all good.' });
+}
+\end{verbatim}
 
 
 
@@ -779,5 +807,14 @@ verrà mostrato dinamicamente all'interno della pagina.
 
 
 
+
+\pagebreak
+\section{Note}
+\subsection{Design}
+Se serve ispirazione per il design, si consiglia di visitare
+\href{https://www.tailwindcss.com}{Tailwind CSS}.
+
+Se serve ispirazione peru una landing page, si consiglia di visitare
+\href{https://dribbble.com}{Dribbble}.
 
 \end{document}
