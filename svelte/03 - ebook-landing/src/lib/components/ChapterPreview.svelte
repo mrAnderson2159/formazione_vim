@@ -3,7 +3,14 @@
 
     const {chapters} = $props();
 
-    const activeTab = $state(0);
+    let activeTab = $state(0);
+    $inspect(activeTab);
+
+    const handleTabChange = (index) => {
+        activeTab = index;
+        console.log('click');
+        
+    }
 </script>
 
 <section class="chapter-preview">
@@ -11,8 +18,13 @@
     <div class="container">
         <div class="tabs">
             <menu>
-                {#each chapters as chapter}
-                    <Tab title={chapter.title} caption={chapter.caption} />
+                {#each chapters as chapter, i}
+                    <Tab 
+                        title={chapter.title} 
+                        caption={chapter.caption} 
+                        clickHandler = {() => handleTabChange(i)}
+                        active={i === activeTab}
+                        />
                 {/each}
             </menu>
         </div>
