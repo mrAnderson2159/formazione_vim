@@ -4,12 +4,9 @@
     const {chapters} = $props();
 
     let activeTab = $state(0);
-    $inspect(activeTab);
 
     const handleTabChange = (index) => {
         activeTab = index;
-        console.log('click');
-        
     }
 </script>
 
@@ -29,7 +26,7 @@
             </menu>
         </div>
         <div class="paragraph">
-            <h3>{chapters[activeTab].subtitle}</h3>
+            <h3 class="italic">{chapters[activeTab].subtitle}</h3>
             <p>{chapters[activeTab].content}</p>
         </div>
     </div>
@@ -52,6 +49,7 @@
     }
     .tabs, .paragraph {
         flex: 1;
+        height: 60vh;
     }
 
     .tabs {

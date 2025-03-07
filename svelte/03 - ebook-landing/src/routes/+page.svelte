@@ -1,8 +1,9 @@
 <script>
-    import { HeroSection, ChapterPreview } from '$components';
+    import { HeroSection, ChapterPreview, AuthorSection } from '$components';
 
     const {data} = $props();
 </script>
-
-<!-- <HeroSection /> -->
-<ChapterPreview chapters={data.chapters}/>
+<!-- 
+<HeroSection />
+<ChapterPreview chapters={data.chapters}/> -->
+<AuthorSection />
