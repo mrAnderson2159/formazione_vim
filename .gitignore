@@ -16,3 +16,7 @@
 # Rust Cargo files
 Cargo.lock
 target/
+
+# Javascript
+node_modules/
+.svelte-kit/
