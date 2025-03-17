@@ -20,3 +20,7 @@ target/
 # Javascript
 node_modules/
 .svelte-kit/
+
+
+# flutter
+flutter/first_app/linux/flutter/generated_*

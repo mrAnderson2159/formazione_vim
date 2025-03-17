@@ -3,7 +3,7 @@
 
     const {data} = $props();
 </script>
-<!-- 
+
 <HeroSection />
-<ChapterPreview chapters={data.chapters}/> -->
+<ChapterPreview chapters={data.chapters}/>
 <AuthorSection />
