@@ -19,9 +19,9 @@ const styles = StyleSheet.create({
         backgroundColor: "#5e0acc",
         borderRadius: 6,
         margin: 8,
-        padding: 8,
     },
     goalItem: {
         color: "white",
+        padding: 8,
     },
 });
