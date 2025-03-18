@@ -1,20 +1,27 @@
-import { StyleSheet, Text, Pressable } from "react-native";
-import { use, useEffect } from "react";
+import { StyleSheet, Text, Pressable, View } from "react-native";
+import { useEffect } from "react";
 
 export default function GoalItem({ goal, clickHandler }) {
     return (
-        <Pressable onPress={clickHandler} android_ripple={{ color: "#ddd" }}>
-            <Text style={styles.goalItem}>{goal}</Text>
-        </Pressable>
+        <View style={styles.goalContainer}>
+            <Pressable
+                onPress={clickHandler}
+                android_ripple={{ color: "#ddd" }}
+            >
+                <Text style={styles.goalItem}>{goal}</Text>
+            </Pressable>
+        </View>
     );
 }
 
 const styles = StyleSheet.create({
-    goalItem: {
+    goalContainer: {
+        backgroundColor: "#5e0acc",
+        borderRadius: 6,
         margin: 8,
         padding: 8,
-        borderRadius: 6,
-        backgroundColor: "#5e0acc",
+    },
+    goalItem: {
         color: "white",
     },
 });
