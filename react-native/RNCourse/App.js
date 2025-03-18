@@ -13,10 +13,17 @@ export default function App() {
         setGoalList((goalList) => [...goalList, goal]);
     };
 
+    const removeGoalHandler = (index) => {
+        setGoalList((goalList) => goalList.filter((_, i) => i !== index));
+    };
+
     return (
         <View style={styles.appContainer}>
             <GoalInput addGoalHandler={addGoalHandler} />
-            <GoalList goalList={goalList} />
+            <GoalList
+                goalList={goalList}
+                removeGoalHandler={removeGoalHandler}
+            />
         </View>
     );
 }
