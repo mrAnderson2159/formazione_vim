@@ -68,7 +68,4 @@ const styles = StyleSheet.create({
         marginRight: 8,
         width: WIDTH,
     },
-    button: {
-        verticalAlign: "middle",
-    },
 });
