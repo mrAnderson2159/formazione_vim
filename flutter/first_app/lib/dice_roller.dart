@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'dart:math';
+
+final random = Random(); // dart:math.Random
 
 class DiceRoller extends StatefulWidget {
   const DiceRoller({super.key});
@@ -10,12 +13,11 @@ class DiceRoller extends StatefulWidget {
 }
 
 class _DiceRollerState extends State<DiceRoller> {
-  var activeDiceImage = 'assets/images/dice-3.png';
+  var currentDiceRoll = random.nextInt(6) + 1;
 
   void rollDice() {
     setState(() {
-      activeDiceImage = 'assets/images/dice-1.png';
-      print('Dice rolled');
+      currentDiceRoll = random.nextInt(6) + 1; // .nextInt(n) returns 0 - n-1
     });
   }
 
@@ -24,15 +26,15 @@ class _DiceRollerState extends State<DiceRoller> {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Image.asset(activeDiceImage, width: 200),
+        Image.asset('assets/images/dice-$currentDiceRoll.png', width: 200),
         // Alternativa a padding in TextButton:style
-        // const SizedBox(height: 30),
+        const SizedBox(height: 30),
         TextButton(
           onPressed: rollDice,
           style: TextButton.styleFrom(
             foregroundColor: Colors.white,
             textStyle: const TextStyle(fontSize: 24),
-            padding: const EdgeInsets.only(top: 30),
+            // padding: const EdgeInsets.only(top: 30),
           ),
           child: const Text('Roll dice'),
         ),
