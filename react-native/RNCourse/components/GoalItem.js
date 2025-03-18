@@ -6,7 +6,8 @@ export default function GoalItem({ goal, clickHandler }) {
         <View style={styles.goalContainer}>
             <Pressable
                 onPress={clickHandler}
-                android_ripple={{ color: "#ddd" }}
+                android_ripple={{ color: "#5e0acc" }}
+                style={({ pressed }) => pressed && styles.pressed} // ios
             >
                 <Text style={styles.goalItem}>{goal}</Text>
             </Pressable>
@@ -23,5 +24,8 @@ const styles = StyleSheet.create({
     goalItem: {
         color: "white",
         padding: 8,
+    },
+    pressed: {
+        opacity: 0.5,
     },
 });
