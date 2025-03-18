@@ -227,6 +227,162 @@ class MyWidget extends StatelessWidget {
 \end{verbatim}
 
 
+
+\subsection{StatefulWidget}
+Uno \textit{StatelessWidget} può esse considerato come un widget statico. Cerchiamo di capire che significa.
+Suppniamo di avere una variabile di classe dichiarata con \texttt{var}, quindi qualcosa che effettivamente può cambiare durante l'esecuzione del programma. 
+Supponiamo ora di avere un widget che deve cambiare in base al valore di questa variabile. 
+
+Se stiamo utilizzando uno \textit{StatelessWidget}, 
+noteremo che il widget interno ignorerà completamente
+i cambiamenti della variabile. E' un po come se in React
+avessimo una componente con una variabile dichiarata tipo
+\texttt{let x = someValue} e poi volessimo cambiare il valore e aspettarci di notare un cambiamento nel DOM.
+
+In React dovremmo utilizzare \texttt{useState} per fare ciò, in Flutter dovremmo estendere uno \textit{StatefulWidget}.
+
+\subsubsection{Funzionamento}
+Il funzionamento di uno \textit{StatefulWidget} è diffente da quello di uno \textit{StatelessWidget}. Quando creiamo uno \textit{StatefulWidget}, vogliamo sempre creare due classi: una che estende \textit{StatefulWidget} 
+\begin{highlight}
+\begin{verbatim}
+class MyWidget extends StatefulWidget {
+  const MyWidget({super.key});
+
+}
+\end{verbatim}
+\end{highlight}
+
+e una classe privata nel file dal nome \textit{$\_$myWidgetState} che estende \textit{State$<$MyWidget$>$}.
+
+\begin{highlight}
+\begin{verbatim}
+class _MyWidgetState extends State<MyWidget> {
+
+}
+\end{verbatim}
+\end{highlight}
+
+Fatto ciò possiamo implementare il metodo \textit{createState()} 
+nel widget principale,
+che restituisce un oggetto di tipo \textit{State<MyWidget>}.
+
+\begin{highlight}
+\begin{verbatim}
+class MyWidget extends StatefulWidget {
+  const MyWidget({super.key});
+
+  @override
+  State<MyWidget> createState() => _MyWidgetState();
+}
+\end{verbatim}
+\end{highlight}
+
+E nella classe privata possiamo implementare il metodo \textit{build()} che restituisce il widget che avevamo intenzione di creare.
+\begin{highlight}
+\begin{verbatim}
+class _MyWidgetState extends State<MyWidget> {
+  @override
+  Widget build(BuildContext context) {
+    ...
+  }
+}
+\end{verbatim}  
+\end{highlight}
+
+\subsubsection{setState()}
+Infine, per ottenere l'effetto desiderato, dobbiamo richiamare,
+in qualsiasi funzione abbia intensione di cambiare lo stato del widget,
+il metodo \textit{setState()}, il quale prende come argomento una 
+funzione, tendenzialmente \textit{anonima}, che modifica lo stato del widget.
+
+Il funzionamento è simile a quello di \texttt{useState} in React.
+Vediamo due esempi comparati tra React e Flutter.
+
+\begin{highlight}
+\begin{verbatim}
+  // React
+  export default function MyComponent() {
+    const [count, setCount] = useState(0);
+  
+    function clickHandler() {
+      setCount((prev) => prev + 1);
+    }
+  
+    return (
+      <div>
+        <p>{count}</p>
+        <button onClick={clickHandler}>Incrementa</button>
+      </div>
+    );
+  }
+\end{verbatim}
+\end{highlight}
+
+\begin{highlight}
+\begin{verbatim}
+  // Flutter
+  class MyWidget extends StatefulWidget {
+    const MyWidget({super.key});
+  
+    @override
+    State<MyWidget> createState() => _MyWidgetState();
+  }
+  
+  class _MyWidgetState extends State<MyWidget> {
+    int count = 0;
+  
+    void clickHandler() {
+      setState(() {
+        count++;
+      });
+    }
+  
+    @override
+    Widget build(BuildContext context) {
+      return Column(
+        children: [
+          Text('$count'),
+          ElevatedButton(
+            onPressed: clickHandler, 
+            child: Text('Incrementa')
+          ),
+        ],
+      );
+    }
+  }
+\end{verbatim}
+\end{highlight}
+
+
+
+
+
+
+
+
+
+
+\subsection{Column e Row}
+\textit{Column} e \textit{Row} sono widget che permettono di allineare
+più widget in verticale o orizzontale rispettivamente.
+L'effetto è quindi quello che otterremmo con 
+\begin{verbatim}
+<div style="display: flex; flex-direction: column;"></div>
+<div style="display: flex; flex-direction: row;"></div>
+\end{verbatim}
+
+\subsection{Buttons}
+Flutter mette a disposizione 3 Widget per la creazione di bottoni:
+\begin{itemize}
+    \item \textit{ElevatedButton}: un bottone con backgorund color e un'ombra che si solleva quando viene premuto.
+    \item \textit{OutlinedButton}: un bottone con background color e un bordo.
+    \item \textit{TextButton}: un bottone con testo senza background color.
+\end{itemize}
+
+
+
+
+
 \section{Modularizzazione}
 Come per la maggior parte dei linguaggi di programmazione,
 anche in Dart è possibile suddividere il codice in più file.
@@ -374,6 +530,136 @@ flutter:
     - assets/immagine.jpg
 \end{verbatim}
 \end{highlight}
+
+
+
+
+\section{Funzioni}
+Le funzioni in Dart sono oggetti di prima classe, il che significa che possono essere assegnate a variabili o passate come parametri ad altre funzioni.
+
+\subsection{Funzioni anonime}
+Le funzioni anonime sono funzioni senza un nome.
+Queste possono essere assegnate a variabili o passate come parametri ad altre funzioni.
+
+Vengono definite con la sintassi 
+\begin{highlight}
+\begin{verbatim}
+(parametri) {
+  // corpo della funzione
+}
+\end{verbatim}
+\end{highlight}
+
+\begin{verbatim}
+  TextButton(
+    onPressed: () {
+      print('Premuto');
+    },
+    child: Text('Premi qui'),
+  )
+\end{verbatim}
+
+\subsection{Funzioni lambda}
+Le funzioni lambda sono funzioni anonime che possono essere scritte in una sola riga. 
+
+Vengono definite con la sintassi
+\begin{highlight}
+\begin{verbatim}  
+(parametri) => espressione
+\end{verbatim}
+\end{highlight}
+
+\begin{verbatim}
+  var somma = (int a, int b) => a + b;
+  print(somma(5, 5)); // 10
+\end{verbatim}
+O se passate come parametro
+\begin{verbatim}
+  void eseguiOperazione(int a, int b, Function(int, int) operazione) {
+    print(operazione(a, b));
+  }
+
+  eseguiOperazione(5, 5, (a, b) => a + b); // 10
+\end{verbatim}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
