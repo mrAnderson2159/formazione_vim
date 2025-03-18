@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:first_app/styled_text.dart';
 import 'package:first_app/dice_roller.dart';
 
 const startAlignment = Alignment.topLeft;
