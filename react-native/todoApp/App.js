@@ -1,4 +1,4 @@
-import { StyleSheet, View, Button } from "react-native";
+import { StyleSheet, View, Button, StatusBar } from "react-native";
 import { useState } from "react";
 import GoalInput from "./components/GoalInput";
 import GoalList from "./components/GoalList";
@@ -23,22 +23,26 @@ export default function App() {
     };
 
     return (
-        <View style={styles.appContainer}>
-            <Button
-                title="Add New Goal"
-                color="#5e0acc"
-                onPress={toggleModal}
-            ></Button>
-            <GoalInput
-                addGoalHandler={addGoalHandler}
-                visibility={isModalVisible}
-                toggleModal={toggleModal}
-            />
-            <GoalList
-                goalList={goalList}
-                removeGoalHandler={removeGoalHandler}
-            />
-        </View>
+        <>
+            {/* L'orario, la batteria, il wifi in alto */}
+            <StatusBar style="light" />
+            <View style={styles.appContainer}>
+                <Button
+                    title="Add New Goal"
+                    color="#5e0acc"
+                    onPress={toggleModal}
+                ></Button>
+                <GoalInput
+                    addGoalHandler={addGoalHandler}
+                    visibility={isModalVisible}
+                    toggleModal={toggleModal}
+                />
+                <GoalList
+                    goalList={goalList}
+                    removeGoalHandler={removeGoalHandler}
+                />
+            </View>
+        </>
     );
 }
 
