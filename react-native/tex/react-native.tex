@@ -212,4 +212,39 @@ sugli elementi della lista passata a data, goalList in questo caso
 
 
 
+\section{Pressable}
+Mentre in React o nel web in generale, qualsiasi 
+elemento può essere generare un evento di click, in React-Native,
+a parte i componenti Button, questo non è vero.
+
+Per rendere una componente cliccabile, bisogna
+wrapparla con il componente \texttt{Pressable}.
+\begin{highlight}
+\begin{verbatim}
+<Pressable onPress={() => console.log('Pressed')}>
+    <Text>Press me</Text>
+</Pressable>
+\end{verbatim}
+\end{highlight}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 \end{document}
