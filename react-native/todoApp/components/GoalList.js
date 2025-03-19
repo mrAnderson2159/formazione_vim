@@ -1,13 +1,17 @@
 import { StyleSheet, Text, View, FlatList } from "react-native";
+import GoalItem from "./GoalItem";
 
-export default function GoalList({ goalList }) {
+export default function GoalList({ goalList, removeGoalHandler }) {
     return (
         <View style={styles.goalsContainer}>
             <Text>Course Goals</Text>
             <FlatList
                 data={goalList}
                 renderItem={(itemData) => (
-                    <Text style={styles.goalItem}>{itemData.item}</Text>
+                    <GoalItem
+                        goal={itemData.item}
+                        clickHandler={() => removeGoalHandler(itemData.index)}
+                    />
                 )}
                 alwaysBounceVertical={false}
             />
@@ -18,12 +22,5 @@ export default function GoalList({ goalList }) {
 const styles = StyleSheet.create({
     goalsContainer: {
         flex: 5,
-    },
-    goalItem: {
-        margin: 8,
-        padding: 8,
-        borderRadius: 6,
-        backgroundColor: "#5e0acc",
-        color: "white",
     },
 });

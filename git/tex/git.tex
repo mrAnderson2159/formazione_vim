@@ -189,12 +189,55 @@ Il comando \texttt{git log} mostra la cronologia dei commit.
 
 \begin{itemize}
     \item \texttt{git log --oneline}: mostra i commit in una riga.
+    \item \texttt{git log --stat}: mostra le statistiche dei file modificati.
     \item \texttt{git log --graph --oneline --all}: mostra il grafo dei commit.
     \item \texttt{git log --author="Nome Cognome"}: mostra i commit di un autore.
     \item \texttt{git log --grep="Messaggio"}: mostra i commit con un messaggio.
 \end{itemize}
 
 \section{Verifiche e ripensamenti}
+\subsection{git commit --amend}
+Supponiamo di aver appena fatto un commit, ma ci rendiamo
+conto di aver fatto un piccolo errore da qualche parte.
+Non vogliamo quindi fare un commit completamente nuovo, ma
+modificare l'ultimo commit effettuato.
+
+Per fare ciò, possiamo utilizzare il comando \texttt{git commit --amend}.
+Questo comando aprirà un editor di testo in cui potremo modificare il messaggio del commit precedente.
+
+In questo modo, invece di avere un commit in più, avremo semplicemente modificato il commit precedente.
+
+Possiamo inoltre voler semplicemente modificare il messaggio 
+del commit invece che il contenuto.
+
+\begin{highlight}
+    \texttt{git commit --amend}
+\end{highlight}
+Possiamo impostare il messaggio del commit direttamente da riga di comando
+\begin{highlight}
+    \texttt{git commit --amend -m "Nuovo messaggio"}
+\end{highlight}
+
+\subsection{git restore}
+Mettiamo di aver aggiunto più file alla staging area di quelli che volevamo.
+Possiamo rimuovere un file dalla staging area utilizzando il comando
+\begin{highlight}
+    \texttt{git restore --staged <file>}
+\end{highlight}
+Se vogliamo riportare uno o più file allo stato precedente, possiamo utilizzare
+\begin{highlight}
+    \texttt{git restore <file>}
+\end{highlight}
+
+
+\subsection{git diff}
+Il comando \texttt{git diff} permette di visualizzare le differenze tra i file.
+\begin{itemize}
+    \item \texttt{git diff}: mostra le differenze tra la working directory e la staging area.
+    \item \texttt{git diff --staged}: mostra le differenze tra la staging area e l'ultimo commit.
+    \item \texttt{git diff <commit1> <commit2>}: mostra le differenze tra due commit.
+    \item \texttt{git diff <file>}: mostra le differenze di un file.
+\end{itemize}
 
 
 \end{document}

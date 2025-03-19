@@ -228,6 +228,448 @@ class MyWidget extends StatelessWidget {
 
 
 
+\subsection{StatefulWidget}
+Uno \textit{StatelessWidget} può esse considerato come un widget statico. Cerchiamo di capire che significa.
+Suppniamo di avere una variabile di classe dichiarata con \texttt{var}, quindi qualcosa che effettivamente può cambiare durante l'esecuzione del programma. 
+Supponiamo ora di avere un widget che deve cambiare in base al valore di questa variabile. 
+
+Se stiamo utilizzando uno \textit{StatelessWidget}, 
+noteremo che il widget interno ignorerà completamente
+i cambiamenti della variabile. E' un po come se in React
+avessimo una componente con una variabile dichiarata tipo
+\texttt{let x = someValue} e poi volessimo cambiare il valore e aspettarci di notare un cambiamento nel DOM.
+
+In React dovremmo utilizzare \texttt{useState} per fare ciò, in Flutter dovremmo estendere uno \textit{StatefulWidget}.
+
+\subsubsection{Funzionamento}
+Il funzionamento di uno \textit{StatefulWidget} è diffente da quello di uno \textit{StatelessWidget}. Quando creiamo uno \textit{StatefulWidget}, vogliamo sempre creare due classi: una che estende \textit{StatefulWidget} 
+\begin{highlight}
+\begin{verbatim}
+class MyWidget extends StatefulWidget {
+  const MyWidget({super.key});
+
+}
+\end{verbatim}
+\end{highlight}
+
+e una classe privata nel file dal nome \textit{$\_$myWidgetState} che estende \textit{State$<$MyWidget$>$}.
+
+\begin{highlight}
+\begin{verbatim}
+class _MyWidgetState extends State<MyWidget> {
+
+}
+\end{verbatim}
+\end{highlight}
+
+Fatto ciò possiamo implementare il metodo \textit{createState()} 
+nel widget principale,
+che restituisce un oggetto di tipo \textit{State<MyWidget>}.
+
+\begin{highlight}
+\begin{verbatim}
+class MyWidget extends StatefulWidget {
+  const MyWidget({super.key});
+
+  @override
+  State<MyWidget> createState() => _MyWidgetState();
+}
+\end{verbatim}
+\end{highlight}
+
+E nella classe privata possiamo implementare il metodo \textit{build()} che restituisce il widget che avevamo intenzione di creare.
+\begin{highlight}
+\begin{verbatim}
+class _MyWidgetState extends State<MyWidget> {
+  @override
+  Widget build(BuildContext context) {
+    ...
+  }
+}
+\end{verbatim}  
+\end{highlight}
+
+\subsubsection{setState()}
+Infine, per ottenere l'effetto desiderato, dobbiamo richiamare,
+in qualsiasi funzione abbia intensione di cambiare lo stato del widget,
+il metodo \textit{setState()}, il quale prende come argomento una 
+funzione, tendenzialmente \textit{anonima}, che modifica lo stato del widget.
+
+Il funzionamento è simile a quello di \texttt{useState} in React.
+Vediamo due esempi comparati tra React e Flutter.
+
+\begin{highlight}
+\begin{verbatim}
+  // React
+  export default function MyComponent() {
+    const [count, setCount] = useState(0);
+  
+    function clickHandler() {
+      setCount((prev) => prev + 1);
+    }
+  
+    return (
+      <div>
+        <p>{count}</p>
+        <button onClick={clickHandler}>Incrementa</button>
+      </div>
+    );
+  }
+\end{verbatim}
+\end{highlight}
+
+\begin{highlight}
+\begin{verbatim}
+  // Flutter
+  class MyWidget extends StatefulWidget {
+    const MyWidget({super.key});
+  
+    @override
+    State<MyWidget> createState() => _MyWidgetState();
+  }
+  
+  class _MyWidgetState extends State<MyWidget> {
+    int count = 0;
+  
+    void clickHandler() {
+      setState(() {
+        count++;
+      });
+    }
+  
+    @override
+    Widget build(BuildContext context) {
+      return Column(
+        children: [
+          Text('$count'),
+          ElevatedButton(
+            onPressed: clickHandler, 
+            child: Text('Incrementa')
+          ),
+        ],
+      );
+    }
+  }
+\end{verbatim}
+\end{highlight}
+
+
+
+
+
+
+
+
+
+
+\subsection{Column e Row}
+\textit{Column} e \textit{Row} sono widget che permettono di allineare
+più widget in verticale o orizzontale rispettivamente.
+L'effetto è quindi quello che otterremmo con 
+\begin{verbatim}
+<div style="display: flex; flex-direction: column;"></div>
+<div style="display: flex; flex-direction: row;"></div>
+\end{verbatim}
+
+\subsection{Buttons}
+Flutter mette a disposizione 3 Widget per la creazione di bottoni:
+\begin{itemize}
+    \item \textit{ElevatedButton}: un bottone con backgorund color e un'ombra che si solleva quando viene premuto.
+    \item \textit{OutlinedButton}: un bottone con background color e un bordo.
+    \item \textit{TextButton}: un bottone con testo senza background color.
+\end{itemize}
+
+
+
+
+
+\section{Modularizzazione}
+Come per la maggior parte dei linguaggi di programmazione,
+anche in Dart è possibile suddividere il codice in più file.
+Per fare ciò, è necessario creare un nuovo file con estensione \textit{.dart}
+e importare il file dove necessario.
+
+Se supponiamo di avere una porzione di codice nel file
+\textit{main.dart} che vogliamo spostare in un file separato,
+creiamo un nuovo file \textit{mywidget.dart} e spostiamo il codice
+al suo interno.
+
+Per importarlo, dobbiamo usare la sintassi
+\begin{highlight}
+\begin{verbatim}
+import 'package:<nome_progetto>/mywidget.dart';
+\end{verbatim}
+\end{highlight}
+
+
+\section{Variabili}
+Le variabili possono essere dichiarate al di fuori di una classe o al 
+suo interno.
+In Dart, le variabili possono essere di tipo \textit{var}, \textit{dynamic} o \textit{final}.
+
+\subsection{var}
+La keyword \textit{var} è utilizzata per dichiarare ed 
+eventualmente definire una variabile il cui tipo
+viene inferito dal compilatore. Questo significa che non è necessario specificare
+il tipo della variabile, poiché il compilatore lo dedurrà in base al valore assegnato.
+
+Inoltre una variabile di tipo \textit{var} può cambiare tipo o valore 
+durante l'esecuzione del programma. 
+Questo comporta che quando si cerca di utilizzare una variabile 
+\textit{var} all'interno di un \texttt{const} Widget, si ottiene 
+un errore, poiché il valore della variabile potrebbe cambiare e 
+questo rende \textit{insicuro} il widget.
+
+\subsection{dynamic}
+Possiamo invece voler semplicemente dichiarare una variabile 
+senza definirla. In questo caso possiamo sempre utilizzare \textit{var}
+e il compilatore la dichiarerà come \textit{dynamic}.
+Tuttavia, è possibile dichiarare una variabile di tipo \textit{dynamic}
+esplicitamente.
+
+\subsection{final}
+Una variabile di tipo \textit{final} è una variabile costante,
+il cui valore non può essere modificato una volta assegnato.
+Questo significa che una variabile di tipo \textit{final} deve essere
+inizializzata al momento della dichiarazione o nel costruttore.
+
+\subsection{const}
+Molto simile a \textit{final}, la keyword \textit{const} viene utilizzata
+per creare variabili costanti. Tuttavia, a differenza di \textit{final},
+una variabile di tipo \textit{const} deve essere inizializzata al momento
+della dichiarazione, viene fissata dal compilatore ed 
+è mantenuta in memoria per tutta la durata del programma.
+
+
+\subsection{typed}
+Una variabile può essere dichiarata con un tipo specifico,
+come \textit{int}, \textit{double}, \textit{String}, ecc.
+\begin{highlight}
+\begin{verbatim}
+int numero = 5;
+double numeroDecimale = 5.5;
+Alignment allineamento = Alignment.center;
+\end{verbatim}
+\end{highlight}
+Se si dichiara una variabile con un tipo specifico, non sarà possibile
+assegnare un valore di un tipo diverso. Se poi vogliamo dichiararne
+il tipo senza assegnare un valore, possiamo utilizzare la sintassi
+\begin{highlight}
+\begin{verbatim}
+Alignment? allineamento;
+\end{verbatim}
+\end{highlight}
+In questo modo la variabile \textit{allineamento} sarà di tipo \textit{Alignment}
+ma non avrà un valore assegnato.
+
+
+\section{Parametri nei widget}
+Un widget può, come qualsiasi classe, accettare parametri.
+Dato un costruttore, possiamo definire una variabile
+con un tipo e passarla al costruttore, vediamo 
+un esempio mutuato dal Java.
+
+\begin{highlight}
+\begin{verbatim}
+  // Java
+  public class Persona {
+    private String nome;
+    private int eta;
+
+    public Persona(String nome, int eta) {
+      this.nome = nome;
+      this.eta = eta;
+    }
+  }
+
+  // Dart
+  class Persona extends StatelessWidget {
+    Persona(this.nome, this.eta, {super.key});
+
+    String nome;
+    int eta;
+  }
+\end{verbatim}
+\end{highlight}
+
+
+\section{Costruttori}
+Il costruttore di default si chiama \textit{MyWidget()}
+e si definisce come abbiamo gia visto: 
+\begin{highlight}
+\begin{verbatim}
+class MyWidget extends StatelessWidget {
+  MyWidget(posParam1, posParam2, {super.key, namedParam1, namedParam2});
+  ...
+}
+\end{verbatim}
+\end{highlight}
+
+Tuttavia è possibile definire un costruttore personalizzato
+che può avere parametri obbligatori o opzionali.
+
+\begin{highlight}
+\begin{verbatim}
+class MyWidget extends StatelessWidget {
+  MyWidget(posParam1, posParam2, {super.key, namedParam1, namedParam2});
+
+  MyWidget.custom_name(posParam1 {super.key, namedParam1}) : 
+    posParam2 = posParam1 + 1, namedParam2 = someValue;
+  ...
+}
+\end{verbatim}
+\end{highlight}
+
+\section{Assets}
+Per aggiungere immagini o altri file al progetto, è necessario
+aggiungere il percorso del file al file \textit{pubspec.yaml}.
+\begin{highlight}
+\begin{verbatim}
+flutter:
+  assets:
+    - assets/immagine.jpg
+\end{verbatim}
+\end{highlight}
+
+
+
+
+\section{Funzioni}
+Le funzioni in Dart sono oggetti di prima classe, il che significa che possono essere assegnate a variabili o passate come parametri ad altre funzioni.
+
+\subsection{Funzioni anonime}
+Le funzioni anonime sono funzioni senza un nome.
+Queste possono essere assegnate a variabili o passate come parametri ad altre funzioni.
+
+Vengono definite con la sintassi 
+\begin{highlight}
+\begin{verbatim}
+(parametri) {
+  // corpo della funzione
+}
+\end{verbatim}
+\end{highlight}
+
+\begin{verbatim}
+  TextButton(
+    onPressed: () {
+      print('Premuto');
+    },
+    child: Text('Premi qui'),
+  )
+\end{verbatim}
+
+\subsection{Funzioni lambda}
+Le funzioni lambda sono funzioni anonime che possono essere scritte in una sola riga. 
+
+Vengono definite con la sintassi
+\begin{highlight}
+\begin{verbatim}  
+(parametri) => espressione
+\end{verbatim}
+\end{highlight}
+
+\begin{verbatim}
+  var somma = (int a, int b) => a + b;
+  print(somma(5, 5)); // 10
+\end{verbatim}
+O se passate come parametro
+\begin{verbatim}
+  void eseguiOperazione(int a, int b, Function(int, int) operazione) {
+    print(operazione(a, b));
+  }
+
+  eseguiOperazione(5, 5, (a, b) => a + b); // 10
+\end{verbatim}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

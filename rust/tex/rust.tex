@@ -204,4 +204,102 @@ let s2 = s1;
 \end{verbatim}
 il puntatore a stringa viene copiato, ma la proprietà viene trasferita a \texttt{s2}.
 Di conseguenza, se proviamo ad accedere a \texttt{s1} otterremo un errore.
+
+
+\section{Borrowing}
+Per risolvere il problema dell'ownership, possiamo utilizzare il concetto di borrowing.
+Il borrowing ci permette di prendere in prestito un riferimento ad una variabile, 
+senza trasferirne la proprietà. Possiamo farlo in due modi:
+\begin{itemize}
+    \item \textbf{Borrowing immutabile}: possiamo prendere in prestito un riferimento
+    ad una variabile in modo tale da poterla solamente leggere, ma non modificarla.
+    \begin{verbatim}
+    let s1 = String::from("Hello, World!");
+    let s2 = &s1;
+    \end{verbatim}
+    \item \textbf{Borrowing mutabile}: possiamo prendere in prestito un riferimento
+    ad una variabile in modo tale da poterla modificare.
+    \begin{verbatim}
+    let mut s1 = String::from("Hello, World!");
+    let s2 = &mut s1;
+    \end{verbatim}
+\end{itemize}
+
+\subsection{Regole di borrowing}
+Le regole di borrowing sono le seguenti:    
+\begin{itemize}
+    \item Possiamo avere un solo riferimento mutabile ad una variabile alla volta.
+    \item Possiamo avere più riferimenti immutabili ad una variabile.
+    \item Non possiamo avere un riferimento mutabile e immutabile ad una variabile.
+\end{itemize}
+
+
+\section{Dereferencing}
+La dereferenziazione è il processo di ottenere il valore di una 
+variabile a partire dal suo riferimento.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 \end{document}
