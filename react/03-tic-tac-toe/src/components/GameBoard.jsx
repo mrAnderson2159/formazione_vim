@@ -2,10 +2,10 @@ import { useState } from "react";
 
 const initialGameBoard = [...Array(3)].map((_, index) => [null, null, null]);
 
-export default function GameBoard() {
+export default function GameBoard({ onSelectSquare, currentPlayer }) {
     const [gameBoard, setGameBoard] = useState(initialGameBoard);
 
-    const handleSelectCell = (x, y, sym) =>
+    const handleSelectCell = (x, y, sym) => {
         setGameBoard((prevGameBoard) => {
             // NON MUTARE prevGameBoard, crea una copia e poi modificala
             const newGameBoard = [...prevGameBoard];
@@ -13,6 +13,9 @@ export default function GameBoard() {
             newGameBoard[x][y] = sym;
             return newGameBoard;
         });
+
+        onSelectSquare();
+    };
 
     return (
         <ol id="game-board">
@@ -26,7 +29,7 @@ export default function GameBoard() {
                                         handleSelectCell(
                                             rowIndex,
                                             colIndex,
-                                            "X"
+                                            currentPlayer
                                         )
                                     }
                                 >
