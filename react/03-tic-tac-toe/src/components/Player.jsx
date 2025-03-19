@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { keyEnter } from "../utils/keyEnter";
 
-export default function Player({ name, symbol }) {
+export default function Player({ name, symbol, isActive }) {
     const [playerName, setPlayerName] = useState(name);
     const [editing, setEditing] = useState(false);
 
@@ -35,7 +35,7 @@ export default function Player({ name, symbol }) {
     }
 
     return (
-        <li>
+        <li className={isActive ? "active" : undefined}>
             <span className="player">
                 {nameField}
                 <span className="player-symbol">{symbol}</span>
