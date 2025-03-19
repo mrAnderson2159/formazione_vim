@@ -5,7 +5,7 @@ import GoalList from "./components/GoalList";
 
 export default function App() {
     // [f'goal {i+1}' for i in range(20)]
-    const dummyGoals = [...Array(20)].map((_, i) => `Goal ${i + 1}`);
+    const dummyGoals = []; // [...Array(20)].map((_, i) => `Goal ${i + 1}`);
 
     const [goalList, setGoalList] = useState(dummyGoals);
     const [isModalVisible, setIsModalVisible] = useState(false);
