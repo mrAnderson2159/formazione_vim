@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quiz_app/start_app_content.dart';
 
 class GradientContainer extends StatelessWidget {
   const GradientContainer({super.key});
@@ -16,30 +17,7 @@ class GradientContainer extends StatelessWidget {
           end: Alignment.bottomRight,
         ),
       ),
-      child: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Image.asset('assets/images/quiz-logo.png', width: 300),
-            const SizedBox(height: 75),
-            Text(
-              'Learn Flutter the fun way!',
-              style: TextStyle(color: Colors.white, fontSize: 23),
-            ),
-            const SizedBox(height: 50),
-            OutlinedButton(
-              onPressed: () {},
-              child: Text(
-                'Start Quiz',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
+      child: Center(child: StartAppContent()),
     );
   }
 }
