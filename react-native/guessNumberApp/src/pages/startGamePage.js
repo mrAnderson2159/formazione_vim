@@ -21,6 +21,10 @@ const styles = StyleSheet.create({
         backgroundColor: "#72063c",
         borderRadius: 8,
         elevation: 8, // Android only
+        shadowColor: "#000", // iOS only
+        shadowOffset: { width: 0, height: 2 }, // iOS only
+        shadowOpacity: 0.25, // iOS only
+        shadowRadius: 6, // iOS only
     },
     buttonsContainer: {},
 });
