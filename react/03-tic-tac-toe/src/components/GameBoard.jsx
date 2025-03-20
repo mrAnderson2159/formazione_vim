@@ -1,30 +1,13 @@
-import { useState } from "react";
+import { use } from "react";
+import { useState, useEffect } from "react";
 
-const initialGameBoard = [...Array(3)].map((_, index) => [null, null, null]);
-
-export default function GameBoard({ onSelectSquare, turns }) {
-    let gameBoard = initialGameBoard;
-
+export default function GameBoard({ gameBoard, onSelectSquare, turns }) {
     for (const turn of turns) {
         const { square, player } = turn;
         const { row, col } = square;
 
         gameBoard[row][col] = player;
     }
-
-    // const [gameBoard, setGameBoard] = useState(initialGameBoard);
-
-    // const handleSelectCell = (x, y, sym) => {
-    //     setGameBoard((prevGameBoard) => {
-    //         // NON MUTARE prevGameBoard, crea una copia e poi modificala
-    //         const newGameBoard = [...prevGameBoard];
-    //         newGameBoard[x] = [...newGameBoard[x]]; // Cloniamo soltanto la riga interessata, le altre saranno puntatori a quelle originali
-    //         newGameBoard[x][y] = sym;
-    //         return newGameBoard;
-    //     });
-
-    //     onSelectSquare();
-    // };
 
     return (
         <ol id="game-board">
@@ -37,6 +20,7 @@ export default function GameBoard({ onSelectSquare, turns }) {
                                     onClick={() =>
                                         onSelectSquare(rowIndex, colIndex)
                                     }
+                                    disabled={playerSymbol !== null}
                                 >
                                     {playerSymbol}
                                 </button>
