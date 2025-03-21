@@ -23,7 +23,7 @@
 		"globals": "^16.0.0",
 		"prettier": "^3.4.2",
 		"prettier-plugin-svelte": "^3.3.3",
-		"svelte": "^5.0.0",
+		"svelte": "^5.23.2",
 		"vite": "^6.0.0"
 	},
 	"dependencies": {
