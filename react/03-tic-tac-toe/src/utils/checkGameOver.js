@@ -1,3 +1,5 @@
+import { GAME_STATUS } from "./constants";
+
 export function checkGameOver(gameBoard) {
     // Check rows
     for (const row of gameBoard) {
@@ -40,4 +42,14 @@ export function checkGameOver(gameBoard) {
 
 export function checkFullGameBoard(gameBoard) {
     return gameBoard.every((row) => row.every((cell) => cell !== null));
+}
+
+export function checkGameStatus(gameBoard) {
+    if (checkGameOver(gameBoard)) {
+        return GAME_STATUS.win;
+    } else if (checkFullGameBoard(gameBoard)) {
+        return GAME_STATUS.draw;
+    }
+
+    return GAME_STATUS.inProgress;
 }
