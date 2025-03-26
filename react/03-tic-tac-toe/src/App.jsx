@@ -7,12 +7,14 @@ import { GAME_STATUS } from "./utils/constants";
 import getPlayer from "./utils/getPlayer";
 import GameOver from "./components/GameOver";
 
-const initialGameBoard = [...Array(3)].map((_, index) => [null, null, null]);
-
 const players = [
     { name: "Player 1", symbol: "X" },
     { name: "Player 2", symbol: "O" },
 ];
+
+function initialGameBoard() {
+    return [...Array(3)].map((_, index) => [null, null, null]);
+}
 
 function deriveActivePlayer(turns) {
     let currentPlayer = "X";
@@ -27,6 +29,7 @@ function deriveActivePlayer(turns) {
 function App() {
     const [gameTurns, setGameTurns] = useState([]);
     const [gameStatus, setGameStatus] = useState(GAME_STATUS.inProgress);
+    const [currentGameBoard, setCurrentGameBoard] = useState(initialGameBoard);
 
     const currentPlayer = deriveActivePlayer(gameTurns);
 
@@ -49,10 +52,11 @@ function App() {
 
     useEffect(() => {
         if (gameTurns.length > 4) {
-            const gameStatus = checkGameStatus(gameTurns, initialGameBoard);
+            const newGameStatus = checkGameStatus(currentGameBoard);
 
-            if (gameStatus !== GAME_STATUS.inProgress)
-                setGameStatus(gameStatus);
+            if (newGameStatus !== GAME_STATUS.inProgress) {
+                setGameStatus(newGameStatus);
+            }
         }
     }, [gameTurns]);
 
@@ -63,11 +67,12 @@ function App() {
                     <GameOver
                         winner={
                             gameStatus === GAME_STATUS.win
-                                ? getPlayer(gameTurns[0].player, players)
+                                ? getPlayer(gameTurns[0], players)
                                 : null
                         }
                         onRestart={() => {
                             setGameTurns([]);
+                            setCurrentGameBoard(initialGameBoard());
                             setGameStatus(GAME_STATUS.inProgress);
                         }}
                     />
@@ -83,7 +88,7 @@ function App() {
                     ))}
                 </ol>
                 <GameBoard
-                    gameBoard={initialGameBoard}
+                    gameBoard={currentGameBoard}
                     onSelectSquare={handleSelectSquare}
                     turns={gameTurns}
                 />
