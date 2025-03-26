@@ -1,9 +1,13 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, View, ImageBackground } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
+import { useState, useEffect } from "react";
 import StartGamePage from "./src/pages/startGamePage";
+import GamePage from "./src/pages/GamePage";
 
 export default function App() {
+    const [userNumber, setUserNumber] = useState(0);
+
     return (
         <LinearGradient
             style={styles.container}
@@ -15,7 +19,8 @@ export default function App() {
                 style={styles.container}
                 imageStyle={styles.backgroundImage}
             >
-                <StartGamePage />
+                {!userNumber && <StartGamePage setUserNumber={setUserNumber} />}
+                {userNumber !== 0 && <GamePage userNumber={userNumber} />}
                 <StatusBar style="auto" />
             </ImageBackground>
         </LinearGradient>

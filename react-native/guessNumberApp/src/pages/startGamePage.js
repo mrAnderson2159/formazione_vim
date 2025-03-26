@@ -2,7 +2,7 @@ import { StyleSheet, TextInput, View, Text, Alert } from "react-native";
 import { useState } from "react";
 import PrimaryButton from "../components/elements/PrimaryButton";
 
-export default function StartGamePage() {
+export default function StartGamePage({ setUserNumber }) {
     const [enteredValue, setEnteredValue] = useState("");
 
     function numberInputHandler(inputText) {
@@ -30,6 +30,9 @@ export default function StartGamePage() {
             );
             return;
         }
+
+        setUserNumber(choseNumber);
+        setEnteredValue("");
     }
 
     return (
