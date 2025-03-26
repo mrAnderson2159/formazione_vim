@@ -15,7 +15,11 @@ export default function PrimaryButton({ onPress, children }) {
     return (
         <View style={styles.outerContainer}>
             <Pressable
-                style={styles.innerContainer}
+                style={({ pressed }) =>
+                    pressed
+                        ? [styles.innerContainer, styles.pressed]
+                        : styles.innerContainer
+                }
                 onPress={onPress}
                 android_ripple={{ color: "#640233" }}
             >
@@ -27,6 +31,7 @@ export default function PrimaryButton({ onPress, children }) {
 
 const styles = StyleSheet.create({
     outerContainer: {
+        flex: 1,
         borderRadius: 28,
         margin: 4,
         overflow: "hidden",
@@ -37,17 +42,13 @@ const styles = StyleSheet.create({
         paddingHorizontal: 16,
         elevation: 2,
     },
-    // container: {
-    //     backgroundColor: "#72063c",
-    //     borderRadius: 28,
-    //     paddingVertical: 8,
-    //     paddingHorizontal: 16,
-    //     elevation: 2,
-    // },
     text: {
         color: "white",
         textAlign: "center",
         fontSize: 16,
         fontWeight: "bold",
+    },
+    pressed: {
+        opacity: 0.75,
     },
 });
