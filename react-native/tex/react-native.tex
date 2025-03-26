@@ -265,7 +265,80 @@ Per aggiungere un'ombra abbiamo due approcci diversi a seconda del sistema opera
 \item Per iOS, possiamo utilizzare la proprietà \texttt{shadowColor}, \texttt{shadowOffset}, \texttt{shadowOpacity} e \texttt{shadowRadius}.
 \item Per Android, possiamo utilizzare la proprietà \texttt{elevation}.
 \item Per entrambi, possiamo utilizzare la proprietà \texttt{shadow} di React-Native.
-\end{itemize}nh
+\end{itemize}
+
+\subsection{Pressable}
+Per quanto riguarda gli elementi Pressable, nella proprietà 
+\texttt{style} possiamo passare, oltre ad un semplice oggetto
+\texttt{StyleSheet}, anche un array di oggetti \texttt{StyleSheet}.
+
+Spingendoci oltre, possiamo passare una funzione (\{pressed\}) => \{...style\} che
+permette di utilizzare il boolean \texttt{pressed} per modificare lo stile
+dell'elemento in base a se è stato premuto o meno.
+
+\subsection{LinearGradient}
+Expo mette a disposizione un pacchetto extra chiamato \texttt{expo-linear-gradient}
+che permette di creare gradienti lineari. Per utilizzarlo, basta installare il pacchetto
+con il comando
+\begin{highlight}
+\begin{verbatim}
+npx expo install expo-linear-gradient
+\end{verbatim}
+\end{highlight}
+
+
+\subsection{Images}
+\subsubsection{ImageBackground}
+Possiamo usare la componente nativa \texttt{ImageBackground} 
+per wrappare un contenuto con un'immagine di sfondo.
+
+Possiamo trovare tante immagini gratis sul sito 
+\href{https://unsplash.com/}{Unsplash}.
+
+\texttt{ImageBackground} ha le seguenti proprietà:
+\begin{itemize}
+\item \texttt{source}: l'immagine da utilizzare. Richiede l'uso di 
+\texttt{require()} per importare l'immagine.
+\item \texttt{style}: lo stile dell'immagine.
+\item \texttt{resizeMode}: come l'immagine deve essere ridimensionata.
+Ad esempio la voce 'cover' permette di coprire l'intero spazio disponibile.
+\item \texttt{imageStyle}: lo stile dell'immagine. 
+Questa proprietà è molto utile perché permette di 
+simulare la rimozione di uno sfondo in una scala di grigi 
+dell'immagine di source con una a nostro piacimento.
+Un po come togliere il green screen in un video.
+\end{itemize}
+
+\pagebreak
+\section{Alert}
+Per mostrare un alert possiamo utilizzare l'oggetto nativo
+\texttt{Alert} di React-Native. Questo oggetto mette a disposizione
+due metodi: \texttt{alert} e \texttt{prompt}.
+
+\subsection{Alert}
+\texttt{Alert.alert} permette di mostrare un alert con un 
+solo pulsante. Il metodo accetta tre parametri:
+\begin{itemize}
+\item \texttt{title}: il titolo dell'alert.
+\item \texttt{message}: il messaggio dell'alert.    
+\item \texttt{buttons}: un array di oggetti che rappresentano 
+i pulsanti dell'alert. Ogni oggetto ha tre proprietà:
+\begin{itemize}
+\item \texttt{text}: il testo del pulsante.
+\item \texttt{style}: lo stile del pulsante (utilizza parole chiave).
+\item \texttt{onPress}: la funzione da eseguire quando il pulsante viene premuto.
+\end{itemize}
+\end{itemize}
+
+
+
+
+
+
+
+
+
+
 
 
 
