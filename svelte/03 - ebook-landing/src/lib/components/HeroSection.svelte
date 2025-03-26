@@ -2,6 +2,8 @@
     import bookCover from '$assets/book_cover.png';
     import phoneCover from '$assets/phone_cover.png';
     import { Button } from '$components';
+
+    const { children } = $props();
 </script>
 
 <section class="hero">
@@ -15,17 +17,21 @@
         <img src={phoneCover} alt="Phone Cover" class="phone-cover">
     </div>
     <div class="hero-text white text-center">
-        <h1>THIS EBOOK WILL</h1>        
-        <h1>SAVE YOU MONEY</h1>
-        <h1 class="mb-m">TIME & NERVS</h1>
-        <p class="light-grey">
-            Moving to Spain has been a transformative experience for me. 
-            I've found a perfect balance between work and leisure, 
-            enjoying the beautiful landscapes and rich history. This book encapsulates my journey. 
-            By sharing my experiences,
-            Invest in this book to save time, money, and stress, and start your new life in Spain with confidence.
-        </p>
-        <Button class="mt-l">Purchase E-book for €10</Button>
+        {#if children}
+            {@render children()}
+        {:else}
+            <h1>THIS EBOOK WILL</h1>        
+            <h1>SAVE YOU MONEY</h1>
+            <h1 class="mb-m">TIME & NERVS</h1>
+            <p class="light-grey">
+                Moving to Spain has been a transformative experience for me. 
+                I've found a perfect balance between work and leisure, 
+                enjoying the beautiful landscapes and rich history. This book encapsulates my journey. 
+                By sharing my experiences,
+                Invest in this book to save time, money, and stress, and start your new life in Spain with confidence.
+            </p>
+            <Button class="mt-l">Purchase E-book for €10</Button>
+        {/if}
     </div>
 </section>
 

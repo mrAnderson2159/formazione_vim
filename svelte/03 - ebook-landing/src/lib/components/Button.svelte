@@ -1,11 +1,37 @@
 <script>
+	import { goto } from '$app/navigation';
+	import { PUBLIC_STRIPE_KEY } from '$env/static/public';
+    import {loadStripe} from '@stripe/stripe-js';
+
     const { children, active, type = 'button', ...props } = $props();
+
+    async function handleClick(event) {
+        try {
+            // Creiamo una sessione di checkout con Stripe
+            const stripe = await loadStripe(PUBLIC_STRIPE_KEY);
+
+            // Comunichiamo con il server per creare la sessione di checkout a /routes/api/checkout/+server.js
+            const response = await fetch('/api/checkout', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            const {sessionId} = await response.json();
+
+            await stripe.redirectToCheckout({ sessionId });
+        } catch (error) {
+            goto('/checkout/failure');
+      }
+    }
 </script>
 
 <button class="base" 
     class:button={type === 'button'} 
     class:tab={type === 'tab'} 
     class:active={active}
+    onclick="{handleClick}"
     {...props}>
     {@render children()}
 </button>
