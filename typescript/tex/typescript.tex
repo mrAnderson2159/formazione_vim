@@ -1,0 +1,165 @@
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsfonts,amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{tcolorbox}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{float}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{lmodern}
+\usepackage{xcolor}
+
+% Colori personalizzati
+\definecolor{primary}{HTML}{2E86C1} % Blu moderno
+\definecolor{secondary}{HTML}{117864} % Verde scuro
+\definecolor{accent}{HTML}{D35400} % Arancione acceso
+\definecolor{lightgray}{HTML}{F2F3F4} % Grigio chiaro per sfondi
+
+% Impostazioni header e footer
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\textbf{\textcolor{primary}{Typescript}}}
+\fancyhead[R]{\textcolor{secondary}{Valerio Molinari}}
+\fancyfoot[C]{\thepage}
+
+% Hyperlink
+\hypersetup{
+    colorlinks=true,
+    linkcolor=primary,
+    urlcolor=accent,
+    citecolor=secondary
+}
+
+% Titoli stilizzati
+\titleformat{\section}{\color{primary}\normalfont\Large\bfseries}{}{0em}{}
+\titleformat{\subsection}{\color{secondary}\normalfont\large\bfseries}{}{0em}{}
+\titleformat{\subsubsection}{\color{accent}\normalfont\normalsize\bfseries}{}{0em}{}
+
+% Evidenziazione con box
+\newtcolorbox{highlight}{colback=lightgray,colframe=primary!80!black,boxrule=0.5mm,arc=4mm,top=2mm,bottom=2mm,left=4mm,right=4mm}
+
+% Spaziatura e interlinea
+\setlength{\parskip}{1em}
+\setlength{\parindent}{0pt}
+\renewcommand{\baselinestretch}{1.5}
+
+% Nuove definizioni
+\newcommand{\important}[1]{\textcolor{accent}{\textbf{#1}}}
+
+\begin{document}
+
+% Copertina
+\begin{titlepage}
+\begin{center}
+\vspace*{3cm}
+\Huge\textcolor{primary}{\textbf{Formazione VIM}} \\[1cm]
+\Large\textcolor{secondary}{Appunti di Typescript} \\[1cm]
+\textcolor{accent}{Valerio Molinari}\\
+\vfill
+\today
+\end{center}
+\end{titlepage}
+
+% Indice
+\tableofcontents
+\newpage
+
+% Esempio di sezione
+\section{Introduzione}
+Typescript è Javascript con l'aggiunta dei \textbf{tipi}. Tramite lo \textbf{static checking}
+controlla gli errori ancora prima di eseguire il codice, in \textbf{fase di sviluppo}.
+Typescript è un superset di Javascript, quindi tutto il codice Javascript è anche codice Typescript.
+
+Va considerato che Typescript in realtà compila in Javascript,
+quindi il codice Typescript serve al programmatore per evitare di
+scrivere bug, al borowser importa ben poco.
+
+\section{Installazione}
+Possiamo installare Typescript in un progetto
+o in una cartella vuota con il comando:
+\begin{highlight}
+    \begin{verbatim}
+    npm install typescript --save-dev
+    \end{verbatim}
+\end{highlight}
+Questo comando installa Typescript come dipendenza di sviluppo.
+Per installare Typescript globalmente, possiamo usare:
+\begin{highlight}
+    \begin{verbatim}
+    npm install -g typescript
+    \end{verbatim}
+\end{highlight}
+Per verificare l'installazione, possiamo usare il comando:
+\begin{highlight}
+    \begin{verbatim}
+    tsc -v
+    \end{verbatim}
+\end{highlight}
+
+\subsection{Playground}
+È anche disponibile un \textbf{\href{https://www.typescriptlang.org/play}{playground}} online per provare il
+codice Typescript senza installare nulla.
+
+Oltre a permettere di eseguire del codice senza instanziare
+un progetto, il \textit{playground} permette di vedere
+esempi dettagliati di codice, permette di configurare
+il compilatore e permette di vedere il codice compilato in Javascript
+in tempo reale.
+
+\section{Compilazione}
+Per compilare il codice Typescript in Javascript, possiamo usare il comando:
+\begin{highlight}
+    \begin{verbatim}
+    tsc nomefile.ts
+    \end{verbatim}
+\end{highlight}
+Questo comando genera un file \textit{.js} con lo stesso nome del file \textit{.ts}.
+Possiamo anche compilare tutti i file Typescript in una cartella
+con il comando:
+\begin{highlight}
+    \begin{verbatim}
+    tsc
+    \end{verbatim}
+\end{highlight}
+Questo comando cerca un file \textit{tsconfig.json} nella cartella corrente e compila
+tutti i file Typescript presenti nella cartella.
+Il file \textit{tsconfig.json} è un file di configurazione per il compilatore Typescript.
+Possiamo generarlo con il comando:
+\begin{highlight}
+    \begin{verbatim}
+    tsc --init
+    \end{verbatim}
+\end{highlight}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
