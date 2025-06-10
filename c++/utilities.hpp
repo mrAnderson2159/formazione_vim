@@ -31,7 +31,7 @@ namespace swap {
 namespace arrays {
     vector<int> get_array() {
         utils::print("Inserisci la dimensione dell'array");
-        int size = utils::int_input();
+        const unsigned int size = utils::int_input();
     
         vector<int> array(size); 
     
@@ -64,7 +64,7 @@ namespace arrays {
 
     void print(int array[], int size) {
         for (size_t i = 0; i < size; i++)
-            cout << array[i] << " ";
+            cout << *(array + i) << " ";
         
         cout << endl;
     }
