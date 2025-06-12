@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include <vector>
+#include <numeric>
 using namespace std;
 
 namespace utils {
@@ -17,6 +18,10 @@ namespace utils {
 
     void print(string prompt) {
         cout << prompt << endl;
+    }
+
+    void print() {
+        cout << endl;
     }
 }
 
@@ -90,6 +95,23 @@ namespace math {
 
         return max;
     }
+
+    template<typename T>
+    T sum(const T * const values, const int length) {
+        static_assert(is_arithmetic<T>::value, "find_max() accetta solo valori numerici");
+        T acc = 0;
+
+        for (size_t i = 0; i < length; i++)
+            acc += values[i];
+
+        return acc;
+    }
+
+    template<typename T>
+    T sum(const vector<T> values) {
+        static_assert(is_arithmetic<T>::value, "find_max() accetta solo valori numerici");
+        return accumulate(values.begin(), values.end(), 0);
+    }
 }
 
 namespace statistics {
@@ -110,7 +132,7 @@ namespace statistics {
     }
 
     template<typename T>
-    int count_if(bool (* condition)(const T value), const T * const values, const int length) {
+    int count_if(bool (* condition)(const T& value), const T * const values, const int length) {
         int counter = 0;
 
         for (size_t i = 0; i < length; i++) {
@@ -122,7 +144,7 @@ namespace statistics {
     }
 
     template<typename T>
-    int count_if(bool (*condition)(const T value), const vector<T>& values) {
+    int count_if(bool (*condition)(const T& value), const vector<T>& values) {
         return statistics::count_if(condition, values.data(), values.size());
     }
 }
