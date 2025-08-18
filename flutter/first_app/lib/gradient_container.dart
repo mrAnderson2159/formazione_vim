@@ -15,9 +15,11 @@ class GradientContainer extends StatelessWidget {
 
   final List<Color> colors;
   final String text;
-  var activeDiceImage = 'assets/images/dice-3.png';
+  var activeDiceImage =
+      'assets/images/dice-3.png'; // Useless now, kept for reference
 
   void rollDice() {
+    // This method is no longer used, but kept for reference
     activeDiceImage = 'assets/images/dice-1.png';
     print('Dice rolled');
   }
