@@ -12,8 +12,6 @@ class StartAppContent extends StatelessWidget {
         Image.asset(
           'assets/images/quiz-logo.png',
           width: 300,
-          // Add color attribute and specify a transparecy
-          // value to change image's opacity
           color: Color.fromARGB(180, 255, 255, 255),
         ),
         const SizedBox(height: 70),
@@ -22,7 +20,16 @@ class StartAppContent extends StatelessWidget {
           style: TextStyle(color: Colors.white, fontSize: 22),
         ),
         const SizedBox(height: 30),
-        Basebutton(text: 'Start Quiz', onPressed: () {}),
+        // In order to understand how to add an icon to a button,
+        // we will use the OutlinedButton instead of our custom Basebutton
+        OutlinedButton.icon(
+          onPressed: () {},
+          style: OutlinedButton.styleFrom(foregroundColor: Colors.white),
+          // the .icon constructor accepts "label" as property for text
+          // instead of "child"
+          label: const Text("Start Quiz"),
+          icon: const Icon(Icons.arrow_right_alt, size: 24),
+        ),
       ],
     );
   }
