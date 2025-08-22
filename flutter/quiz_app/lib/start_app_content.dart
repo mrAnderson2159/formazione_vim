@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 
 class StartAppContent extends StatelessWidget {
-  // Here we accept a function as a positional parameter
-  // in order to pass it to the OutlinedButton widget
   const StartAppContent(this.startQuiz, {super.key});
 
   final void Function() startQuiz;

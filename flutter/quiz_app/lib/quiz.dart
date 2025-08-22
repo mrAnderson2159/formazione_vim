@@ -13,26 +13,11 @@ class Quiz extends StatefulWidget {
 }
 
 class _QuizState extends State<Quiz> {
-  // As first step, we define a variable to hold the active screen
-  // and let it null initially
-  Widget? activeScreen;
+  String activeScreen = 'start-screen';
 
-  // The initState method is called once when the stateful widget
-  // is inserted in the widget tree.
-  // Our purpose here is to pass a function to the StartAppContent,
-  // which couldn't be done in the constructor directly because
-  // "switchScreen" is not defined yet.
-  @override
-  void initState() {
-    activeScreen = StartAppContent(switchScreen);
-    super.initState();
-  }
-
-  // This function will be passed to the StartAppContent widget
-  // and will be called when the user taps the "Start Quiz" button.
   void switchScreen() {
     setState(() {
-      activeScreen = const QuestionScreen();
+      activeScreen = 'quesiton-screen';
     });
   }
 
@@ -52,8 +37,12 @@ class _QuizState extends State<Quiz> {
                 end: Alignment.bottomRight,
               ),
             ),
-            // Since activeScreen is a widget, we can pass it as a pointer
-            child: Center(child: activeScreen),
+            child: Center(
+              child:
+                  activeScreen == 'start-screen'
+                      ? StartAppContent(switchScreen)
+                      : const QuestionScreen(),
+            ),
           ),
         ),
       ),
