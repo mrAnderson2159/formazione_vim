@@ -9,7 +9,13 @@ class StartAppContent extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Image.asset('assets/images/quiz-logo.png', width: 300),
+        Image.asset(
+          'assets/images/quiz-logo.png',
+          width: 300,
+          // Add color attribute and specify a transparecy
+          // value to change image's opacity
+          color: Color.fromARGB(180, 255, 255, 255),
+        ),
         const SizedBox(height: 70),
         const Text(
           'Learn Flutter the fun way!',
