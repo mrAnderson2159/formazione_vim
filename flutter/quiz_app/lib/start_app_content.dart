@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:quiz_app/base_button.dart';
 
 class StartAppContent extends StatelessWidget {
-  const StartAppContent({super.key});
+  // Here we accept a function as a positional parameter
+  // in order to pass it to the OutlinedButton widget
+  const StartAppContent(this.startQuiz, {super.key});
+
+  final void Function() startQuiz;
 
   @override
   Widget build(BuildContext context) {
@@ -20,13 +23,9 @@ class StartAppContent extends StatelessWidget {
           style: TextStyle(color: Colors.white, fontSize: 22),
         ),
         const SizedBox(height: 30),
-        // In order to understand how to add an icon to a button,
-        // we will use the OutlinedButton instead of our custom Basebutton
         OutlinedButton.icon(
-          onPressed: () {},
+          onPressed: startQuiz,
           style: OutlinedButton.styleFrom(foregroundColor: Colors.white),
-          // the .icon constructor accepts "label" as property for text
-          // instead of "child"
           label: const Text("Start Quiz"),
           icon: const Icon(Icons.arrow_right_alt, size: 24),
         ),
