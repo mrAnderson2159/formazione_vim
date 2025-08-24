@@ -18,9 +18,10 @@ class _QuizState extends State<Quiz> {
   String activeScreen = 'start-screen';
   List<String> selectedAnswers = [];
 
-  void switchScreen() {
+  void goToQuestionScreen() {
     setState(() {
       activeScreen = 'quesiton-screen';
+      selectedAnswers = [];
     });
   }
 
@@ -30,7 +31,6 @@ class _QuizState extends State<Quiz> {
     if (selectedAnswers.length == questions.length) {
       setState(() {
         activeScreen = 'results-screen';
-        // selectedAnswers = [];
       });
     }
   }
@@ -41,13 +41,16 @@ class _QuizState extends State<Quiz> {
 
     switch (activeScreen) {
       case 'start-screen':
-        screenWidget = StartAppContent(switchScreen);
+        screenWidget = StartAppContent(goToQuestionScreen);
         break;
       case 'quesiton-screen':
         screenWidget = QuestionScreen(onSelectAnswer: chooseAnswer);
         break;
       case 'results-screen':
-        screenWidget = ResultsScreen(chosenAnswers: selectedAnswers);
+        screenWidget = ResultsScreen(
+          chosenAnswers: selectedAnswers,
+          onRestart: goToQuestionScreen,
+        );
         break;
       default:
         throw 'Invalid screen';
