@@ -1,5 +1,9 @@
 import 'package:quiz_app/models/quiz_question.dart';
 
+/*
+By structure the first answer is always the correct one
+*/
+
 const List<QuizQuestion> questions = [
   QuizQuestion('What are the main building blocks of Flutter UIs', [
     'Widgets',
@@ -8,26 +12,26 @@ const List<QuizQuestion> questions = [
     'Functions',
   ]),
   QuizQuestion('Which of these is not a Flutter layout widget?', [
+    'Container',
     'Column',
     'Stack',
     'GridView',
-    'Container',
   ]),
   QuizQuestion('Which company developed Flutter?', [
-    'Apple',
     'Google',
+    'Apple',
     'Microsoft',
     'Facebook',
   ]),
   QuizQuestion('What programming language is used to code Flutter apps?', [
+    'Dart',
     'Java',
     'Kotlin',
-    'Dart',
     'C#',
   ]),
   QuizQuestion(
     'Which of these is not an IDE that can be used for Flutter development?',
-    ['Android Studio', 'Visual Studio Code', 'Xcode', 'Eclipse'],
+    ['Eclipse', 'Android Studio', 'Visual Studio Code', 'Xcode'],
   ),
   QuizQuestion('How is Flutter UIs built?', [
     'By combining widgets in a widget tree',
