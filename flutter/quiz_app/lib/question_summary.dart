@@ -28,6 +28,9 @@ class QuestionSummary extends StatelessWidget {
             )
             .toList();
 
-    return Column(children: data);
+    return SizedBox(
+      height: 400,
+      child: SingleChildScrollView(child: Column(children: data)),
+    );
   }
 }
