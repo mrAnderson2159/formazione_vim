@@ -25,14 +25,19 @@ class ResultsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Map<String, Object>> summaryData = getSummaryData();
+    final List<Map<String, Object>> summaryData = getSummaryData();
+    final int correct =
+        summaryData
+            .where((data) => data['correct_answer'] == data['user_answer'])
+            .length;
+    final int total = summaryData.length;
 
     return Container(
       margin: const EdgeInsets.all(40),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text("You ansered X out of Y questions correctly!"),
+          Text("You ansered $correct out of $total questions correctly!"),
           const SizedBox(height: 30),
           QuestionSummary(summaryData: summaryData),
           const SizedBox(height: 30),
