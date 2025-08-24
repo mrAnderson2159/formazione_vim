@@ -31,8 +31,7 @@ class _QuestionScreenState extends State<QuestionScreen> {
   Widget build(BuildContext context) {
     QuizQuestion currentQuestion = questions[currentQuestionIndex];
     List<AnswerButton> answers =
-        currentQuestion
-            .getShuffledAnswer()
+        currentQuestion.shuffledAnswer
             .map((a) => AnswerButton(a, onPressed: () => answerQuestion(a)))
             .toList();
 
