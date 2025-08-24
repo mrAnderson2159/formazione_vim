@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:quiz_app/start_app_content.dart';
 import 'package:quiz_app/question_screen.dart';
+import 'package:quiz_app/results_screen.dart';
 import 'package:quiz_app/data/quesitons.dart';
 
 // The main StatefulWidget that manages the different screens of the app
@@ -28,18 +29,28 @@ class _QuizState extends State<Quiz> {
 
     if (selectedAnswers.length == questions.length) {
       setState(() {
-        activeScreen = 'start-screen';
-        selectedAnswers = [];
+        activeScreen = 'results-screen';
+        // selectedAnswers = [];
       });
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    Widget screenWidget = StartAppContent(switchScreen);
+    Widget screenWidget;
 
-    if (activeScreen == 'quesiton-screen') {
-      screenWidget = QuestionScreen(onSelectAnswer: chooseAnswer);
+    switch (activeScreen) {
+      case 'start-screen':
+        screenWidget = StartAppContent(switchScreen);
+        break;
+      case 'quesiton-screen':
+        screenWidget = QuestionScreen(onSelectAnswer: chooseAnswer);
+        break;
+      case 'results-screen':
+        screenWidget = ResultsScreen(chosenAnswers: selectedAnswers);
+        break;
+      default:
+        throw 'Invalid screen';
     }
 
     return MaterialApp(
