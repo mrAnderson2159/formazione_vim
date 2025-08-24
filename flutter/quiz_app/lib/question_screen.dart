@@ -22,11 +22,9 @@ class _QuestionScreenState extends State<QuestionScreen> {
     // this is offered by State up here
     widget.onSelectAnswer(selectedAnswer);
 
-    if (currentQuestionIndex + 1 < questions.length) {
-      setState(() {
-        currentQuestionIndex++;
-      });
-    }
+    setState(() {
+      currentQuestionIndex++;
+    });
   }
 
   @override

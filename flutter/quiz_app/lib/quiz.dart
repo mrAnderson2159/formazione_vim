@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:quiz_app/start_app_content.dart';
 import 'package:quiz_app/question_screen.dart';
+import 'package:quiz_app/data/quesitons.dart';
 
 // The main StatefulWidget that manages the different screens of the app
 class Quiz extends StatefulWidget {
@@ -14,7 +15,7 @@ class Quiz extends StatefulWidget {
 
 class _QuizState extends State<Quiz> {
   String activeScreen = 'start-screen';
-  final List<String> selectedAnswers = [];
+  List<String> selectedAnswers = [];
 
   void switchScreen() {
     setState(() {
@@ -24,6 +25,13 @@ class _QuizState extends State<Quiz> {
 
   void chooseAnswer(String answer) {
     selectedAnswers.add(answer);
+
+    if (selectedAnswers.length == questions.length) {
+      setState(() {
+        activeScreen = 'start-screen';
+        selectedAnswers = [];
+      });
+    }
   }
 
   @override
