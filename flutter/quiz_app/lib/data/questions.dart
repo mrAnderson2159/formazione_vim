@@ -5,7 +5,7 @@ By structure the first answer is always the correct one
 */
 
 const List<QuizQuestion> questions = [
-  QuizQuestion('What are the main building blocks of Flutter UIs', [
+  QuizQuestion('What are the main building blocks of Flutter UIs?', [
     'Widgets',
     'Components',
     'Blocks',

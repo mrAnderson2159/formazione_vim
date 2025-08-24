@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:quiz_app/start_app_content.dart';
 import 'package:quiz_app/question_screen.dart';
 import 'package:quiz_app/results_screen.dart';
-import 'package:quiz_app/data/quesitons.dart';
+import 'package:quiz_app/data/questions.dart';
 
 // The main StatefulWidget that manages the different screens of the app
 class Quiz extends StatefulWidget {
