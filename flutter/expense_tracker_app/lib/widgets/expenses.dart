@@ -45,16 +45,48 @@ class _ExpensesState extends State<Expenses> {
     ),
   ];
 
+  void _openAddExpenseOverlay() {
+    // When you type "show" you can see a cery complete list of features
+    // provided by Material for showing stuff on the screen.
+    // For this task we're using showModalBottomSheet.
+    //
+    // This utility function takes 2 required parameters: context and builder
+    // Context is the context of the widget from which you call this function.
+    // We could use the context of the build method, but since we're inside
+    // a State object, we can use the context property of this class, which is,
+    // under the hood, the same context of the build method.
+    // This context contains all the information about the Expenses widget,
+    // like its position in the widget tree, theme information, etc... and, as
+    // said, it's provided by the State class.
+    //
+    // The builder parameter is a function that returns the widget that should
+    // be displayed inside the modal. We already saw this pattern when we
+    // used the ListView.builder widget.
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext ctx) {
+        return const Text('This is a modal sheet');
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Expense Tracker App")),
+      // When you have an AppBar, the space above for the clock, wifi. battery etc...
+      // is automatically reserved and it gives the app a better look
+      appBar: AppBar(
+        title: Text("Expense Tracker App"),
+        actions: [
+          IconButton(
+            onPressed: _openAddExpenseOverlay,
+            icon: const Icon(Icons.add),
+          ),
+        ],
+      ),
       body: Column(
         children: [
           const Text('The chart'),
-          // When you have a Column inside a Column or staff like that,
-          // Flutter will give you problems because it doesn't know
-          // how to properly render it. In such cases you need to use Expanded
           Expanded(child: ExpensesList(expenses: _registerExpenses)),
         ],
       ),
