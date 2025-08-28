@@ -8,10 +8,15 @@ class NewExpense extends StatefulWidget {
 }
 
 class _NewExpenseState extends State<NewExpense> {
-  String _enteredTitled = '';
+  final _titleController = TextEditingController();
 
-  void _saveTitleInput(String inputValue) {
-    _enteredTitled = inputValue;
+  // It's VERY IMPORTANT to remember of using dispose when using
+  // TextEditingController because otherwise the controller will survive in
+  // memory even if the container Widged ceased to exist
+  @override
+  void dispose() {
+    _titleController.dispose();
+    super.dispose();
   }
 
   @override
@@ -20,17 +25,15 @@ class _NewExpenseState extends State<NewExpense> {
       padding: const EdgeInsets.all(16),
       child: Column(
         children: [
-          // We use TextField for inputs
           TextField(
             maxLength: 50,
-            // The label is added via decoration
             decoration: const InputDecoration(label: Text('Title')),
-            onChanged: _saveTitleInput,
+            controller: _titleController,
           ),
           Row(
             children: [
               ElevatedButton(
-                onPressed: () => print(_enteredTitled),
+                onPressed: () => print(_titleController.text),
                 child: const Text('Save Expense'),
               ),
             ],
