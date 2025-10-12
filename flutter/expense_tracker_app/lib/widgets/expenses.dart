@@ -46,9 +46,9 @@ class _ExpensesState extends State<Expenses> {
     ),
   ];
 
-  void addExpense(Expense expense) {
+  void _addExpense(Expense expense) {
     setState(() {
-      _registerExpenses.insert(0, expense);
+      _registerExpenses.add(expense);
     });
   }
 
@@ -72,7 +72,7 @@ class _ExpensesState extends State<Expenses> {
     showModalBottomSheet(
       context: context,
       builder: (BuildContext ctx) {
-        return NewExpense(addExpense);
+        return NewExpense(_addExpense);
       },
     );
   }

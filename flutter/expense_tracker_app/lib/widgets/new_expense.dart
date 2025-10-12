@@ -1,23 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:expense_tracker_app/models/expense.dart';
-
-enum _InputFields { title, amount }
+import 'package:expense_tracker_app/extensions/string_extentions.dart';
 
 class NewExpense extends StatefulWidget {
-  final void Function(Expense expense) addExpense;
+  final void Function(Expense expense) onAddExpense;
 
-  const NewExpense(this.addExpense, {super.key});
+  const NewExpense(this.onAddExpense, {super.key});
 
   @override
   State<NewExpense> createState() => _NewExpenseState();
 }
 
 class _NewExpenseState extends State<NewExpense> {
-  final Map<_InputFields, TextEditingController> _controllers = {
-    _InputFields.title: TextEditingController(),
-    _InputFields.amount: TextEditingController(),
-  };
-
+  final TextEditingController _textController = TextEditingController();
+  final TextEditingController _amountController = TextEditingController();
   DateTime? _selectedDate;
   Category _selectedCategory = Category.leisure;
 
@@ -38,39 +34,42 @@ class _NewExpenseState extends State<NewExpense> {
     });
   }
 
-  void submit() {
-    final List<String> wrongFields = [];
+  void _submitExpenseData() {
+    final bool textIsInvalid = _textController.text.trim().isEmpty;
+    final double? enteredAmount = double.tryParse(_amountController.text);
+    final bool amountIsInvalid = enteredAmount == null || enteredAmount <= 0;
+    final bool dateIsInvalid = _selectedDate == null;
 
-    String title = _controllers[_InputFields.title]!.text.trim();
-    String amount = _controllers[_InputFields.amount]!.text.trim();
-    DateTime? date = _selectedDate;
-    Category category = _selectedCategory;
-
-    if (title.isEmpty) {
-      wrongFields.add("Title");
-    }
-
-    if (amount.isEmpty || double.tryParse(amount) == null) {
-      wrongFields.add('Amount');
-    }
-
-    if (date == null) {
-      wrongFields.add('Date');
-    }
-
-    if (wrongFields.isEmpty) {
-      final Expense expense = Expense(
-        title: title,
-        amount: double.parse(amount),
-        date: date!,
-        category: category,
+    if (textIsInvalid || amountIsInvalid || dateIsInvalid) {
+      showDialog(
+        context: context,
+        builder: (ctx) => AlertDialog(
+          title: const Text("Invalid input"),
+          content: const Text(
+            "Please make sure that a valid title, amount, date "
+            "and category was entered.",
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text("OK"),
+            ),
+          ],
+        ),
       );
-
-      widget.addExpense(expense);
-      Navigator.pop(context);
-    } else {
-      print("Bad format: ${wrongFields.join(', ')} are wrong fields");
+      return;
     }
+
+    widget.onAddExpense(
+      Expense(
+        title: _textController.text.capitalize(),
+        amount: enteredAmount,
+        date: _selectedDate!,
+        category: _selectedCategory,
+      ),
+    );
+
+    Navigator.pop(context);
   }
 
   // It's VERY IMPORTANT to remember of using dispose when using
@@ -78,9 +77,8 @@ class _NewExpenseState extends State<NewExpense> {
   // memory even if the container Widged ceased to exist
   @override
   void dispose() {
-    for (final c in _controllers.values) {
-      c.dispose();
-    }
+    _textController.dispose();
+    _amountController.dispose();
 
     super.dispose();
   }
@@ -94,7 +92,7 @@ class _NewExpenseState extends State<NewExpense> {
           TextField(
             maxLength: 50,
             decoration: const InputDecoration(label: Text('Title')),
-            controller: _controllers[_InputFields.title],
+            controller: _textController,
           ),
           Row(
             children: [
@@ -105,7 +103,7 @@ class _NewExpenseState extends State<NewExpense> {
                     label: Text('Amount'),
                     prefixText: '€ ',
                   ),
-                  controller: _controllers[_InputFields.amount],
+                  controller: _amountController,
                 ),
               ),
               const SizedBox(width: 16),
@@ -160,7 +158,7 @@ class _NewExpenseState extends State<NewExpense> {
                 child: const Text('Cancel'),
               ),
               ElevatedButton(
-                onPressed: submit,
+                onPressed: _submitExpenseData,
                 child: const Text('Save Expense'),
               ),
             ],
