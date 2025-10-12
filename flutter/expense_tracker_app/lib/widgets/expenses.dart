@@ -53,14 +53,34 @@ class _ExpensesState extends State<Expenses> {
   }
 
   void _removeExpense(Expense expense) {
+    final int expenseIndex = _registerExpenses.indexOf(expense);
+
     setState(() {
       _registerExpenses.remove(expense);
     });
+
+    // We call this line to remove istantaneously any other SnackBar that might be
+    // showing. This way we avoid the queue of SnackBars that would show one after
+    // the other if the user deletes multiple expenses in a row.
+    ScaffoldMessenger.of(context).clearSnackBars();
+
+    // This shows a snack bar lasting for 3 seconds that allows to undo the
+    // accidental deleting of an expense
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text("Expense deleted"),
+        duration: Duration(seconds: 3),
+        action: SnackBarAction(
+          label: "Undo",
+          onPressed: () => setState(() {
+            _registerExpenses.insert(expenseIndex, expense);
+          }),
+        ),
+      ),
+    );
   }
 
   void _openAddExpenseOverlay() {
-    // To make a fullscreen overlay we set isScrollControlled = true, which
-    // can also be usefull to take space enough when the phone keyboard shows up
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -72,9 +92,18 @@ class _ExpensesState extends State<Expenses> {
 
   @override
   Widget build(BuildContext context) {
+    Widget mainContent = const Center(
+      child: Text("No expenses found. Start adding some!"),
+    );
+
+    if (_registerExpenses.isNotEmpty) {
+      mainContent = ExpensesList(
+        expenses: _registerExpenses,
+        onDismissed: _removeExpense,
+      );
+    }
+
     return Scaffold(
-      // When you have an AppBar, the space above for the clock, wifi. battery etc...
-      // is automatically reserved and it gives the app a better look
       appBar: AppBar(
         title: Text("Expense Tracker App"),
         actions: [
@@ -87,12 +116,7 @@ class _ExpensesState extends State<Expenses> {
       body: Column(
         children: [
           const Text('The chart'),
-          Expanded(
-            child: ExpensesList(
-              expenses: _registerExpenses,
-              onDismissed: _removeExpense,
-            ),
-          ),
+          Expanded(child: mainContent),
         ],
       ),
     );
