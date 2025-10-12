@@ -52,6 +52,12 @@ class _ExpensesState extends State<Expenses> {
     });
   }
 
+  void _removeExpense(Expense expense) {
+    setState(() {
+      _registerExpenses.remove(expense);
+    });
+  }
+
   void _openAddExpenseOverlay() {
     // To make a fullscreen overlay we set isScrollControlled = true, which
     // can also be usefull to take space enough when the phone keyboard shows up
@@ -81,7 +87,12 @@ class _ExpensesState extends State<Expenses> {
       body: Column(
         children: [
           const Text('The chart'),
-          Expanded(child: ExpensesList(expenses: _registerExpenses)),
+          Expanded(
+            child: ExpensesList(
+              expenses: _registerExpenses,
+              onDismissed: _removeExpense,
+            ),
+          ),
         ],
       ),
     );

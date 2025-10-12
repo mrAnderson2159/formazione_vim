@@ -3,21 +3,32 @@ import 'package:flutter/material.dart';
 import 'package:expense_tracker_app/models/expense.dart';
 
 class ExpensesList extends StatelessWidget {
-  const ExpensesList({super.key, required this.expenses});
+  const ExpensesList({
+    super.key,
+    required this.expenses,
+    required this.onDismissed,
+  });
 
   final List<Expense> expenses;
+  final void Function(Expense expens) onDismissed;
 
   @override
   Widget build(BuildContext context) {
-    // When you have a list of unkown big lenght, Column is not the ideal,
-    // this is because you want to render just a small amount of these
-    // elements. You need a lazy something.. something like ListView!
+    // Flutter allows to swipe elements away with the Dismissible widget. This
+    // widget requires a key to identify the element. Here we use the ValueKey
+    // which takes any value and uses it as the key. In this case we use the
+    // expense object itself as the value. When the user swipes the item away,
+    // the onDismissed function is called and we pass the expense that was
+    // swiped away to the function.
     //
-    // ListView are scrollable elements and the builder constructor
-    // loads the elements only when they are visible or are about to be visible
+    // onDismissed requires the direction of the swipe, but we don't need it here.
     return ListView.builder(
       itemCount: expenses.length,
-      itemBuilder: (ctx, index) => ExpenseItem(expense: expenses[index]),
+      itemBuilder: (ctx, index) => Dismissible(
+        key: ValueKey(expenses[index]),
+        onDismissed: (direction) => onDismissed(expenses[index]),
+        child: ExpenseItem(expense: expenses[index]),
+      ),
     );
   }
 }
