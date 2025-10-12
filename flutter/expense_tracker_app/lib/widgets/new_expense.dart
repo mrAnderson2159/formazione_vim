@@ -4,7 +4,9 @@ import 'package:expense_tracker_app/models/expense.dart';
 enum _InputFields { title, amount }
 
 class NewExpense extends StatefulWidget {
-  const NewExpense({super.key});
+  final void Function(Expense expense) addExpense;
+
+  const NewExpense(this.addExpense, {super.key});
 
   @override
   State<NewExpense> createState() => _NewExpenseState();
@@ -34,6 +36,41 @@ class _NewExpenseState extends State<NewExpense> {
     setState(() {
       _selectedDate = pickedDate;
     });
+  }
+
+  void submit() {
+    final List<String> wrongFields = [];
+
+    String title = _controllers[_InputFields.title]!.text.trim();
+    String amount = _controllers[_InputFields.amount]!.text.trim();
+    DateTime? date = _selectedDate;
+    Category category = _selectedCategory;
+
+    if (title.isEmpty) {
+      wrongFields.add("Title");
+    }
+
+    if (amount.isEmpty || double.tryParse(amount) == null) {
+      wrongFields.add('Amount');
+    }
+
+    if (date == null) {
+      wrongFields.add('Date');
+    }
+
+    if (wrongFields.isEmpty) {
+      final Expense expense = Expense(
+        title: title,
+        amount: double.parse(amount),
+        date: date!,
+        category: category,
+      );
+
+      widget.addExpense(expense);
+      Navigator.pop(context);
+    } else {
+      print("Bad format: ${wrongFields.join(', ')} are wrong fields");
+    }
   }
 
   // It's VERY IMPORTANT to remember of using dispose when using
@@ -123,7 +160,7 @@ class _NewExpenseState extends State<NewExpense> {
                 child: const Text('Cancel'),
               ),
               ElevatedButton(
-                onPressed: () => print(_controllers.entries),
+                onPressed: submit,
                 child: const Text('Save Expense'),
               ),
             ],

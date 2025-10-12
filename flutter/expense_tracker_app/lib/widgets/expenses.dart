@@ -46,6 +46,12 @@ class _ExpensesState extends State<Expenses> {
     ),
   ];
 
+  void addExpense(Expense expense) {
+    setState(() {
+      _registerExpenses.insert(0, expense);
+    });
+  }
+
   void _openAddExpenseOverlay() {
     // When you type "show" you can see a cery complete list of features
     // provided by Material for showing stuff on the screen.
@@ -66,7 +72,7 @@ class _ExpensesState extends State<Expenses> {
     showModalBottomSheet(
       context: context,
       builder: (BuildContext ctx) {
-        return const NewExpense();
+        return NewExpense(addExpense);
       },
     );
   }
