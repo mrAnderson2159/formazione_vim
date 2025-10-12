@@ -53,24 +53,11 @@ class _ExpensesState extends State<Expenses> {
   }
 
   void _openAddExpenseOverlay() {
-    // When you type "show" you can see a cery complete list of features
-    // provided by Material for showing stuff on the screen.
-    // For this task we're using showModalBottomSheet.
-    //
-    // This utility function takes 2 required parameters: context and builder
-    // Context is the context of the widget from which you call this function.
-    // We could use the context of the build method, but since we're inside
-    // a State object, we can use the context property of this class, which is,
-    // under the hood, the same context of the build method.
-    // This context contains all the information about the Expenses widget,
-    // like its position in the widget tree, theme information, etc... and, as
-    // said, it's provided by the State class.
-    //
-    // The builder parameter is a function that returns the widget that should
-    // be displayed inside the modal. We already saw this pattern when we
-    // used the ListView.builder widget.
+    // To make a fullscreen overlay we set isScrollControlled = true, which
+    // can also be usefull to take space enough when the phone keyboard shows up
     showModalBottomSheet(
       context: context,
+      isScrollControlled: true,
       builder: (BuildContext ctx) {
         return NewExpense(_addExpense);
       },
