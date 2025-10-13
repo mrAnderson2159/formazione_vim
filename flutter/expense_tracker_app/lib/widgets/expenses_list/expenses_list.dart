@@ -28,11 +28,17 @@ class ExpensesList extends StatelessWidget {
         key: ValueKey(expenses[index]),
         direction: DismissDirection.endToStart,
         background: Container(
-          decoration: const BoxDecoration(
+          // we apply the same margin of the cards
+          margin: Theme.of(context).cardTheme.margin,
+          decoration: BoxDecoration(
             gradient: LinearGradient(
               begin: AlignmentGeometry.centerRight,
               end: AlignmentGeometry.centerLeft,
-              colors: [Color(0xFFB00020), Color.fromARGB(100, 252, 86, 83)],
+              // we use error color
+              colors: [
+                Theme.of(context).colorScheme.error,
+                Theme.of(context).colorScheme.error.withAlpha(150),
+              ],
             ),
           ),
           alignment: Alignment.centerRight,

@@ -12,8 +12,18 @@ class ExpenseItem extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
         child: Column(
+          // We dispose the title on the left side of the card.
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(expense.title),
+            // We can style our widgets using the properties provided by
+            // the current app theme. The Theme class exposes a static
+            // .of(context) method that allows access to the active theme
+            // at a given point in the widget tree.
+            //
+            // Note that you are not required to use titleLarge as is:
+            // you can also use .copyWith() on titleLarge
+            // to apply further customizations
+            Text(expense.title, style: Theme.of(context).textTheme.titleLarge),
             const SizedBox(height: 4),
             Row(
               children: [
