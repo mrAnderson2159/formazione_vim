@@ -40,18 +40,12 @@ class ExpenseBucket {
 
   const ExpenseBucket({required this.category, required this.expenses});
 
+  ExpenseBucket.forCategory(List<Expense> allExpenses, this.category)
+    : expenses = allExpenses
+          .where((expense) => expense.category == category)
+          .toList();
+
   double get totalExpenses {
-    // The .fold() method is a very handy way to perform
-    // accumulation operations on any List.
-    // However, since we haven't seen it before,
-    // let's also look at how to achieve the same result
-    // using a traditional for-in loop.
-
-    // double sum = 0;
-    // for (final expense in expenses) {
-    //   sum += expense.amount;
-    // }
-
     return expenses.fold(0.0, (sum, expense) => sum + expense.amount);
   }
 }
