@@ -33,3 +33,25 @@ class Expense {
     return formatter.format(date);
   }
 }
+
+class ExpenseBucket {
+  final Category category;
+  final List<Expense> expenses;
+
+  const ExpenseBucket({required this.category, required this.expenses});
+
+  double get totalExpenses {
+    // The .fold() method is a very handy way to perform
+    // accumulation operations on any List.
+    // However, since we haven't seen it before,
+    // let's also look at how to achieve the same result
+    // using a traditional for-in loop.
+
+    // double sum = 0;
+    // for (final expense in expenses) {
+    //   sum += expense.amount;
+    // }
+
+    return expenses.fold(0.0, (sum, expense) => sum + expense.amount);
+  }
+}
