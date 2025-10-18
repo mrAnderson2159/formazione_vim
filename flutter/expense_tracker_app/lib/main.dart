@@ -16,7 +16,6 @@ void main() {
       darkTheme: ThemeData.dark().copyWith(
         colorScheme: kDarkColorScheme,
         appBarTheme: const AppBarTheme().copyWith(
-          // backgroundColor: kColorScheme.onPrimaryContainer,
           foregroundColor: kDarkColorScheme.onPrimaryContainer,
         ),
         cardTheme: const CardThemeData().copyWith(
@@ -34,6 +33,10 @@ void main() {
             fontWeight: FontWeight.bold,
             color: kDarkColorScheme.onSecondaryContainer,
             fontSize: 16,
+          ),
+          bodyMedium: TextStyle(
+            color: kDarkColorScheme.onSecondaryContainer,
+            fontSize: 14,
           ),
         ),
       ),
@@ -58,9 +61,13 @@ void main() {
             color: kColorScheme.onSecondaryContainer,
             fontSize: 16,
           ),
+          bodyMedium: TextStyle(
+            color: kColorScheme.onSecondaryContainer,
+            fontSize: 14,
+          ),
         ),
       ),
-      // themeMode: ThemeMode.dark,
+      themeMode: ThemeMode.light,
       home: Expenses(),
     ),
   );
